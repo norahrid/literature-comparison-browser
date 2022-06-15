@@ -1,0 +1,118 @@
+/* Main app styling ====================== */
+
+.main-app {
+  margin: 0 auto;
+  background-color: #22252c;
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #a9a9a9;
+  font: 16px sans-serif;
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.side-label {
+  font-size: 12px;
+}
+
+/* Dashboard styling ====================== */
+
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dashboard-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard-related {
+  gap: 5px;
+  min-width: 25vh;
+}
+
+.dashboard-element {
+  min-height: 10vh;
+  align-content: space-between;
+  gap: 30px;
+}
+
+.track-row-1 {
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.track-row-2 {
+  gap: 10px;
+  align-items: flex-end;
+}
+
+/* Button styling ====================== */
+
+button {
+  border: none;
+  border-radius: 4px;
+  font-family: sans-serif;
+}
+
+.basic-button {
+  background-color: #1e90ff;
+  color: white;
+  font-size: 20px;
+}
+
+.filter-button {
+  height: 38px;
+  width: 65px;
+}
+
+.process-button {
+  height: 38px;
+  width: 85px;
+}
+
+.jump-button {
+  height: 30px;
+  width: 65px;
+}
+
+.pan-button {
+  height: 25px;
+  width: 35px;
+  background-color: white;
+  color: #1e90ff;
+  font-size: 35px;
+  padding: 0px 5px;
+  line-height: 7px;
+  margin: 0px 3px;
+  text-decoration: none !important;
+  outline: none;
+}
+
+/* Form field styling ====================== */
+
+input {
+  width: 10%;
+  padding: 5px 8px;
+  margin: 5px 5px;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+input:focus {
+  background-color: aliceblue;
+}
