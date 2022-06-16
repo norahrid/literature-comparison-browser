@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import p5 from "p5";
 import { useSelector, useDispatch } from "react-redux";
+import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
 import { componentWidth } from "../constants";
 import bookData from "../assets/Pride_and_Prejudice_data.json";
 
@@ -23,6 +24,14 @@ const GlobalView = (props) => {
     return {"low": low, "high": high}
   }
 
+  const findGroupBoundaries = (data) => {
+    for (let key in data) {
+      for (let i=0; i < data[key]; i++) {
+
+      }
+    }
+  }
+
   const computeProportions = (data) => {
     const totalElements = Object.values(data).reduce((accumulator, elem) => {
       return accumulator + elem.length;
@@ -40,15 +49,32 @@ const GlobalView = (props) => {
 
   const draw = (ctx) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-    ctx.fillStyle = '#ff5733';
+    // ctx.fillStyle = '#ff5733';
 
     const width = componentWidth - (margin * (Object.keys(bookData).length + 1))
-    const rectWidth = width / (Object.keys(bookData).length + 1);
+    //const rectWidth = width / (Object.keys(bookData).length + 1);
     const proportions = computeProportions(bookData);
 
+    const magnifier = 1;
 
+    var colourScale = scaleLinear()
+    .domain([low*magnifier, high*magnifier])
+    .range([0, 1]);
+
+    let newStart = 0;
     for (let key in bookData) {
-      ctx.fillRect((key * margin) + (rectWidth * key), 0, rectWidth, 75);
+
+      const rectWidth = width * proportions[key];
+      const unit = rectWidth / bookData[key].length;
+      const chunkStart = (key * margin) + newStart;
+      
+      for (let i=0; i < bookData[key].length; i++) {
+        const colour = interpolateRdBu(colourScale(bookData[key][i]["length"] * magnifier));
+        ctx.fillStyle = colour;
+        ctx.fillRect(chunkStart + (i*unit), 0, unit, 75);
+      }
+
+      newStart += rectWidth;
     }
 
 

@@ -26,7 +26,9 @@ function App() {
     <div className="main-app">
       <Dashboard />
 
-      {headers}
+      <GlobalView />
+
+      {/* {headers} */}
 
     </div>
   );

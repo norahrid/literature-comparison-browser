@@ -6,10 +6,10 @@ import getFileByPath from "../helpers/getFileByPath";
 import categorizeFile from "../helpers/categorizeFile";
 import { getCompleteData, getReferenceMap, getContigMapping, matchUnitigsToChromosomes } from "../helpers/processDataHelpers";
 import { scaleChromosomeData, formatDataIntoObject } from "../helpers/formatDataHelpers";
-import complete from "../exampleImages/complete-example.png";
-import general from "../exampleImages/agp-example.png";
-import contigs from "../exampleImages/contigs-example.png";
-import intact from "../exampleImages/intact-example.png";
+// import complete from "../exampleImages/complete-example.png";
+// import general from "../exampleImages/agp-example.png";
+// import contigs from "../exampleImages/contigs-example.png";
+// import intact from "../exampleImages/intact-example.png";
 
 const FileDrop = () => {
 
@@ -67,7 +67,7 @@ const FileDrop = () => {
 
         <h2>File formatting</h2>
 
-        <p>This file helps us match unitigs to chromosomes. Example of the required format for GENOME.agp:</p>
+        {/* <p>This file helps us match unitigs to chromosomes. Example of the required format for GENOME.agp:</p>
         <img 
             src={general}
             alt="Example of a agp-example file"
@@ -93,7 +93,7 @@ const FileDrop = () => {
             src={complete}
             alt="Example of a complete-example file"
             width="750"
-        ></img>
+        ></img> */}
 
   </div>
  
