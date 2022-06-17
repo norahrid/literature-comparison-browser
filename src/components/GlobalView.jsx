@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
+import { changeChunkSelection } from "../reducers/globalSlice";
 import { componentHeight, componentWidth, margin } from "../constants";
 import { 
   calculateGroupBoundaries, 
@@ -11,11 +12,13 @@ import bookData from "../assets/Pride_and_Prejudice_data.json";
 
 const GlobalView = (props) => {
   const canvasRef = useRef(null);
+  const dispatch = useDispatch();
   //const [mouse, setMouse] = useState({x: null, y: null});
   const { low, high } = findBoundariesOfCharacteristic(bookData, "length");
   const width = componentWidth - (margin * (Object.keys(bookData).length + 1))
   const proportions = computeProportions(bookData);
   const boundaries = calculateGroupBoundaries(bookData, proportions, width);
+  const identifier = bookData[1][0]["title"].toUpperCase().replaceAll(" ", "_");
 
   const draw = (ctx, data) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
@@ -47,7 +50,7 @@ const GlobalView = (props) => {
     // No need to check for y position since the canvas = track height
     const selectedChunk = identifySelectedChunk(actualX, bookData, boundaries)
     if (selectedChunk !== null) {
-      //dispatch
+      dispatch(changeChunkSelection({"id": identifier, "chunk": selectedChunk}));
     }
   }
 

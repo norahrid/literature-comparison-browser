@@ -1,5 +1,7 @@
 import { schemeCategory10 } from "d3";
 
+export const DEFAULT_DATA_TYPE = "LITERATURE";
+
 export const geneHeight = 15;
 
 export const subregionGeneHeight = 25;
@@ -35,8 +37,8 @@ export const existingOptions = {
     label: "Literature",
     value: "LITERATURE",
     headers: ["Book", "Chapter", "Subsection"],
-    dashboard: [
-      {
+    dashboard: {
+      1: {
         label: "Book",
         options: {
           PRIDE_AND_PREJUDICE: {
@@ -46,7 +48,7 @@ export const existingOptions = {
         },
         minElementRequirement: 1
       },
-      {
+      2: {
         label: "Words",
         options: {
           ALL_WORDS: {
@@ -64,7 +66,7 @@ export const existingOptions = {
         },
         minElementRequirement: 1
       }
-    ]
+    }
   }
 }
 

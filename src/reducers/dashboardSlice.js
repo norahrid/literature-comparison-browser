@@ -1,60 +1,24 @@
+import { existingOptions, DEFAULT_DATA_TYPE } from "../constants";
+import { initializeRecord } from "../helpers/record";
+
 const initialState = {
-    dataType: "LITERATURE",
-    clades: ["DEFAULT", "TEKAY", "OGRE"],
-    genomes: ["LENS_CULINARIS"],
-    completeFilters: ["all"],
-    secondaryTrack: ["GDM"]
+    dataType: DEFAULT_DATA_TYPE,
+    ...initializeRecord(Object.keys(existingOptions[DEFAULT_DATA_TYPE]["dashboard"]), [])
 }
 
-export const changeCladeSelection = (newClades) => {
+export const changeDataTypeSelection = (newDataType) => {
     return {
-        type: "dashboard/cladesSelectionChanged",
-        payload: newClades
+        type: "dashboard/dataTypeSelectionChanged",
+        payload: newDataType
     };
-}
-
-export const changeGenomeSelection = (newGenomes) => {
-    return {
-        type: "dashboard/genomesSelectionChanged",
-        payload: newGenomes
-    };
-}
-
-export const changeCompleteFilterSelection = (newFilters) => {
-    return {
-        type: "dashboard/completeFiltersChanged",
-        payload: newFilters
-    };
-}
-
-export const changeSecondaryTrackSelection = (newFilters) => {
-    return {
-        type: "dashboard/secondaryTrackSelectionChanged",
-        payload: newFilters
-    }
 }
 
 export const dashboardReducer = (state = initialState, action) => {
     switch(action.type) {
-        case "dashboard/cladesSelectionChanged":
+        case "dashboard/dataTypeSelectionChanged":
             return {
                 ...state,
                 clades: action.payload
-            };
-        case "dashboard/genomesSelectionChanged":
-            return {
-                ...state,
-                genomes: action.payload
-            };
-        case "dashboard/completeFiltersChanged":
-            return {
-                ...state, 
-                completeFilters: action.payload
-            };
-        case "dashboard/secondaryTrackSelectionChanged":
-            return {
-                ...state,
-                secondaryTrack: action.payload
             };
         default:
             return state;

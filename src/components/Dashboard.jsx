@@ -4,32 +4,18 @@ import "../main.css";
 import MultiSelector from "./MultiSelector";
 import SingleSelector from "./SingleSelector";
 import { genomeOptions, clades, completeOptions, trackOptions, existingOptions } from "../constants";
-import { changeCladeSelection, changeGenomeSelection, changeCompleteFilterSelection, changeSecondaryTrackSelection } from "../reducers/dashboardSlice";
+import { changeDataTypeSelection } from "../reducers/dashboardSlice";
 
 const Dashboard = (props) => {
     const dispatch = useDispatch();
-
-    const handleGenomeChange = (newValue) => {
-        dispatch(changeGenomeSelection(newValue));
-    }
-
-    const handleCladeChange = (newValue) => {
-        dispatch(changeCladeSelection(newValue));
-    }
-
-    const handleCompleteFilterChange = (newValue) => {
-        dispatch(changeCompleteFilterSelection(newValue));
-    }
-
-    const handleTrackChange = (newValue) => {
-        dispatch(changeSecondaryTrackSelection(newValue))
-    }
+    const state = useSelector(state => state);
+    console.log(state)
 
     const handleDataTypeChange = () => {
         console.log("hit")
     }
 
-    const elements = existingOptions["LITERATURE"]["dashboard"].map((el, i) => {
+    const elements = Object.values(existingOptions["LITERATURE"]["dashboard"]).map((el, i) => {
         return (
             <MultiSelector 
                 key={`${el["label"]}-sel-${i}`}

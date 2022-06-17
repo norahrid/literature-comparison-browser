@@ -1,12 +1,5 @@
 // Helper functions to aid with initialization and img grabbing
 
-// Used to create a list of all selected genomes with a spec. init value
-export const initializeRecord = (keys, intialValue) => {
-    return keys.reduce((data, k) => {
-        data[k] = intialValue;
-        return data;
-    }, {})
-}
 
 // Collects all of the clade images for the selected genome
 export const getGenomeImages = (genome, clades, completeFilter) => {
