@@ -1,96 +1,75 @@
 import React, { useEffect, useRef } from "react";
-import p5 from "p5";
 import { useSelector, useDispatch } from "react-redux";
 import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
-import { componentWidth } from "../constants";
+import { componentHeight, componentWidth, margin } from "../constants";
+import { 
+  calculateGroupBoundaries, 
+  findBoundariesOfCharacteristic, 
+  computeProportions,
+  identifySelectedChunk } from "../helpers/boundaries";
 import bookData from "../assets/Pride_and_Prejudice_data.json";
-
 
 const GlobalView = (props) => {
   const canvasRef = useRef(null);
+  //const [mouse, setMouse] = useState({x: null, y: null});
+  const { low, high } = findBoundariesOfCharacteristic(bookData, "length");
+  const width = componentWidth - (margin * (Object.keys(bookData).length + 1))
+  const proportions = computeProportions(bookData);
+  const boundaries = calculateGroupBoundaries(bookData, proportions, width);
 
-  const margin = 3;
-
-  const findBoundariesOfCharacteristic = (data, characteristic) => {
-    let low = Infinity;
-    let high = -Infinity;
-    for (let key in data) {
-      for (let i=0; i < data[key].length; i++) {
-        const val = data[key][i][characteristic];
-        if (val < low) low = val;
-        else if (val > high) high = val;
-      }
-    }
-    return {"low": low, "high": high}
-  }
-
-  const findGroupBoundaries = (data) => {
-    for (let key in data) {
-      for (let i=0; i < data[key]; i++) {
-
-      }
-    }
-  }
-
-  const computeProportions = (data) => {
-    const totalElements = Object.values(data).reduce((accumulator, elem) => {
-      return accumulator + elem.length;
-    }, 0);
-
-    let proportions = {};
-    for (let key in data) {
-      proportions[key] = data[key].length / totalElements;
-    }
-
-    return proportions;
-  }
-
-  const { low, high } = findBoundariesOfCharacteristic(bookData, "length")
-
-  const draw = (ctx) => {
+  const draw = (ctx, data) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-    // ctx.fillStyle = '#ff5733';
-
-    const width = componentWidth - (margin * (Object.keys(bookData).length + 1))
-    //const rectWidth = width / (Object.keys(bookData).length + 1);
-    const proportions = computeProportions(bookData);
-
-    const magnifier = 1;
 
     var colourScale = scaleLinear()
-    .domain([low*magnifier, high*magnifier])
+    .domain([low, high])
     .range([0, 1]);
 
     let newStart = 0;
-    for (let key in bookData) {
+    for (let key in data) {
 
       const rectWidth = width * proportions[key];
-      const unit = rectWidth / bookData[key].length;
-      const chunkStart = (key * margin) + newStart;
+      const unit = rectWidth / data[key].length;
+      // chunk starts at 1 but we need to start at 0
+      const chunkStart = ((key - 1) * margin) + newStart;
       
-      for (let i=0; i < bookData[key].length; i++) {
-        const colour = interpolateRdBu(colourScale(bookData[key][i]["length"] * magnifier));
+      for (let i=0; i < data[key].length; i++) {
+        const colour = interpolateRdBu(colourScale(data[key][i]["length"]));
         ctx.fillStyle = colour;
         ctx.fillRect(chunkStart + (i*unit), 0, unit, 75);
       }
-
       newStart += rectWidth;
     }
-
-
-
-    //ctx.fillRect(0, 0, componentWidth, 75);
   }
+
+  const selectChunk = (event) => {
+    let rect = canvasRef.current.getBoundingClientRect();
+    const actualX = event.pageX - rect.x;
+    // No need to check for y position since the canvas = track height
+    const selectedChunk = identifySelectedChunk(actualX, bookData, boundaries)
+    if (selectedChunk !== null) {
+      //dispatch
+    }
+  }
+
+
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    draw(context)
+    draw(context, bookData)
   }, [draw]);
   
   return (
-    <canvas width={componentWidth} ref={canvasRef} {...props} />
+    <canvas 
+      className="global-view" 
+      width={componentWidth} 
+      height={componentHeight}
+      onClick={selectChunk} 
+      ref={canvasRef} 
+      {...props} 
+    />
   )
 };
 export default GlobalView;

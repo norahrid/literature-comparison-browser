@@ -1,4 +1,5 @@
 const initialState = {
+    dataType: "LITERATURE",
     clades: ["DEFAULT", "TEKAY", "OGRE"],
     genomes: ["LENS_CULINARIS"],
     completeFilters: ["all"],

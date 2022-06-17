@@ -4,13 +4,17 @@ export const geneHeight = 15;
 
 export const subregionGeneHeight = 25;
 
+export const componentHeight = 75;
+
+export const margin = 3;
+
 // export const sliderWidth = 75;
 
 export const alphaNum = 150;
 
-export const margin = 20;
+//export const margin = 20;
 
-export const componentHeight = 115;
+//export const componentHeight = 115;
 
 export const componentHeightWoutGDM = 90;
 
