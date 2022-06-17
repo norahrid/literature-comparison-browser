@@ -5,6 +5,7 @@ import "./main.css";
 import Dashboard from "./components/Dashboard";
 import { existingOptions, genomeOptions } from "./constants";
 import GlobalView from "./components/GlobalView";
+import ChunkView from "./components/ChunkView";
 
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
       <Dashboard />
 
       <GlobalView />
+
+      <ChunkView />
 
       {/* {headers} */}
 
