@@ -13,6 +13,7 @@
     "file-saver": "^2.0.5",
     "fs": "^0.0.1-security",
     "gh-pages": "^3.2.3",
+    "interactjs": "^1.10.14",
     "p5": "^1.4.0",
     "path": "^0.12.7",
     "rc-slider": "^9.7.5",

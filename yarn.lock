@@ -1314,6 +1314,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@interactjs/types@1.10.14":
+  "integrity" "sha512-ds6wAI9aDzojzr7UBvifUJIgogCL1ZL0nfBrXDv5GVMaW7gBglqejaeiQ1a0cRiHII/8p8s5AwPhhODTDM8RCQ=="
+  "resolved" "https://registry.npmjs.org/@interactjs/types/-/types-1.10.14.tgz"
+  "version" "1.10.14"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   "integrity" "sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ=="
   "resolved" "https://registry.npmjs.org/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz"
@@ -6420,6 +6425,13 @@
   "integrity" "sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew=="
   "resolved" "https://registry.npmjs.org/ini/-/ini-1.3.8.tgz"
   "version" "1.3.8"
+
+"interactjs@^1.10.14":
+  "integrity" "sha512-UhwZhuFqmKLSJ1o04LlvFMdxohwvuMjVrQC96TI8/dEhF/dS47Tqm3Po5i4yKXaCMIqI8qdvmyfeIWdGLYSClA=="
+  "resolved" "https://registry.npmjs.org/interactjs/-/interactjs-1.10.14.tgz"
+  "version" "1.10.14"
+  dependencies:
+    "@interactjs/types" "1.10.14"
 
 "internal-ip@^4.3.0":
   "integrity" "sha512-S1zBo1D6zcsyuC6PMmY5+55YMILQ9av8lotMx447Bq6SAgo/sDK6y6uUKmuYhW7eacnIhFfsPmCNYdDzsnnDCg=="
