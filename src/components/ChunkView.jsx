@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
 import interact from "interactjs";
 import { changeSliderBoundaries } from "../reducers/chunkSlice";
-import { componentHeight, componentWidth, margin } from "../constants";
+import { componentHeight, componentWidth, margin, sliderWidth } from "../constants";
 import { 
   calculateGroupBoundaries, 
   findBoundariesOfCharacteristic, 
@@ -121,7 +121,7 @@ const ChunkView = (props) => {
       <div className="chunk-inner-wrapper" style={{'width': componentWidth}}>
         <div className="chunk-window-wrapper" style={{'width': componentWidth}}>
           <div id="chunk-slider"
-            style={{ height: componentHeight + 'px' }}>
+            style={{ 'height': componentHeight, 'width': sliderWidth }}>
           </div>
         </div>
       </div>

@@ -14,24 +14,49 @@ const SubregionView = (props) => {
   const canvasRef = useRef(null);
   const dispatch = useDispatch();
   const state = useSelector(state => state);
+  const chunkSelection = state["global"]["chunkSelection"]["PRIDE_AND_PREJUDICE"];
+  const { start, end, width } = state["chunk"]["PRIDE_AND_PREJUDICE"]
   //const [mouse, setMouse] = useState({x: null, y: null});
   const { low, high } = findBoundariesOfCharacteristic(bookData, "length");
+  const data = bookData[chunkSelection];
 
-  console.log(state)
+  console.log(data)
+
+  const getSliderSelection = () => {
+    let selection = [];
+    for (let i=0; i<data.length; i++) {
+        if (data[i].start >= start && data[i].end <= end) {
+            selection.push(data[i]);
+        }
+    }
+    return selection;
+  }
 
   const draw = (ctx, data) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+
+    const selection = getSliderSelection();
 
     var colourScale = scaleLinear()
     .domain([low, high])
     .range([0, 1]);
 
-    ctx.fillStyle = 'red';
-    ctx.fillRect(0, 0, componentWidth, componentHeight);
+    // ctx.fillStyle = 'red';
+    // ctx.fillRect(0, 0, componentWidth, componentHeight);
 
-    for (let key in data) {
+
+    const unit = componentWidth / selection.length;
+
+    for (let i=0; i<selection.length; i++) {
+        const colour = interpolateRdBu(colourScale(selection[i]["length"]));
+        ctx.fillStyle = colour;
+
+        //const elemStart = ((selection[i] - start) / width) * componentWidth;
+        ctx.fillRect(i * unit, 0, unit, componentHeight);
 
     }
+
+
   }
 
 

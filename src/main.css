@@ -118,7 +118,7 @@ input:focus {
 }
 
 #chunk-slider {
-  width: 50px;
+  /* width: 50px; */
   background-color: #4c585d36;
   touch-action: none;
   /* This makes things *much* easier */

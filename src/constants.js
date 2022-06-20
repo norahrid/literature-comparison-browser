@@ -30,6 +30,8 @@ export const baseline = 25;
 
 export const backgroundTextColour = 169;
 
+export const sliderWidth = 50;
+
 export const minSliderWidth = 10;
 
 export const existingOptions = {
