@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
 import { changeChunkSelection } from "../reducers/globalSlice";
-import { componentHeight, componentWidth, margin } from "../constants";
+import { componentHeight, componentWidth, margin, existingOptions } from "../constants";
 import { 
   calculateGroupBoundaries, 
   findBoundariesOfCharacteristic, 
@@ -19,6 +19,7 @@ const SubregionView = (props) => {
   //const [mouse, setMouse] = useState({x: null, y: null});
   const { low, high } = findBoundariesOfCharacteristic(bookData, "length");
   const data = bookData[chunkSelection];
+  const headers = existingOptions["LITERATURE"]["headers"];
 
   console.log(data)
 
@@ -68,13 +69,17 @@ const SubregionView = (props) => {
   }, [draw]);
   
   return (
-    <canvas 
-      className="subregion-view" 
-      width={componentWidth} 
-      height={componentHeight}
-      ref={canvasRef} 
-      {...props} 
-    />
+    <div>
+        <h2>{headers[2]}</h2>
+        <canvas 
+        className="subregion-view" 
+        width={componentWidth} 
+        height={componentHeight}
+        ref={canvasRef} 
+        {...props} 
+        />
+    </div>
+
   )
 };
 export default SubregionView;

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
 import interact from "interactjs";
 import { changeSliderBoundaries } from "../reducers/chunkSlice";
-import { componentHeight, componentWidth, margin, sliderWidth } from "../constants";
+import { componentHeight, componentWidth, margin, sliderWidth, existingOptions } from "../constants";
 import { 
   calculateGroupBoundaries, 
   findBoundariesOfCharacteristic, 
@@ -18,6 +18,7 @@ const ChunkView = (props) => {
   const { low, high } = findBoundariesOfCharacteristic(bookData, "length");
   const identifier = bookData[1][0]["title"].toUpperCase().replaceAll(" ", "_");
   const data = bookData[chunkSelection];
+  const headers = existingOptions["LITERATURE"]["headers"];
 
   const getStartAndEnd = (target) => {
     let xPosition = (parseFloat(target.getAttribute('data-x')) || 0),
@@ -118,6 +119,7 @@ const ChunkView = (props) => {
   
   return (
     <div className="chunk-outer-wrapper">
+      <h2>{headers[1]}</h2>
       <div className="chunk-inner-wrapper" style={{'width': componentWidth}}>
         <div className="chunk-window-wrapper" style={{'width': componentWidth}}>
           <div id="chunk-slider"

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
 import { changeChunkSelection } from "../reducers/globalSlice";
-import { componentHeight, componentWidth, margin } from "../constants";
+import { componentHeight, componentWidth, margin, existingOptions } from "../constants";
 import { 
   calculateGroupBoundaries, 
   findBoundariesOfCharacteristic, 
@@ -19,6 +19,7 @@ const GlobalView = (props) => {
   const proportions = computeProportions(bookData);
   const boundaries = calculateGroupBoundaries(bookData, proportions, width);
   const identifier = bookData[1][0]["title"].toUpperCase().replaceAll(" ", "_");
+  const headers = existingOptions["LITERATURE"]["headers"];
 
   const draw = (ctx, data) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
@@ -65,14 +66,18 @@ const GlobalView = (props) => {
   }, [draw]);
   
   return (
-    <canvas 
-      className="global-view" 
-      width={componentWidth} 
-      height={componentHeight}
-      onClick={selectChunk} 
-      ref={canvasRef} 
-      {...props} 
-    />
+    <div>
+      <h2>{headers[0]}</h2>
+      <canvas 
+        className="global-view" 
+        width={componentWidth} 
+        height={componentHeight}
+        onClick={selectChunk} 
+        ref={canvasRef} 
+        {...props} 
+      />
+    </div>
+
   )
 };
 export default GlobalView;
