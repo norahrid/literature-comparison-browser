@@ -8,14 +8,14 @@ const initialState = {
 
 export const changeChunkSelection = (newChunkSelection) => {
     return {
-        type: "dashboard/chunkSelectionChanged",
+        type: "global/chunkSelectionChanged",
         payload: newChunkSelection
     };
 }
 
 export const globalReducer = (state = initialState, action) => {
     switch(action.type) {
-        case "dashboard/chunkSelectionChanged":
+        case "global/chunkSelectionChanged":
             const { id, chunk } = action.payload;
             return {
                 ...state,

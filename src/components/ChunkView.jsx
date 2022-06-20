@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
 import interact from "interactjs";
-import { changeChunkSelection } from "../reducers/globalSlice";
+import { changeSliderBoundaries } from "../reducers/chunkSlice";
 import { componentHeight, componentWidth, margin } from "../constants";
 import { 
   calculateGroupBoundaries, 
@@ -16,10 +16,26 @@ const ChunkView = (props) => {
   const dispatch = useDispatch();
   const chunkSelection = useSelector(state => state["global"]["chunkSelection"]["PRIDE_AND_PREJUDICE"]);
   const { low, high } = findBoundariesOfCharacteristic(bookData, "length");
+  const identifier = bookData[1][0]["title"].toUpperCase().replaceAll(" ", "_");
   const data = bookData[chunkSelection];
 
-  const attachDraggableSlider = () => {
+  const getStartAndEnd = (target) => {
+    let xPosition = (parseFloat(target.getAttribute('data-x')) || 0),
+        width = target.style.width;
+    if (width.indexOf('px') > -1) {
+        width = +width.slice(0, -2);
+    }
+    else {
+        width = 75;
+    }
+    const start = Math.abs(xPosition), end = start + width;
+    return {
+        'start': start,
+        'end': end
+    };
+}
 
+  const attachDraggableSlider = () => {
     interact('#chunk-slider')
       .draggable({
         inertia: true,
@@ -34,7 +50,10 @@ const ChunkView = (props) => {
                 target.setAttribute('data-x', x);
             }
           },
-          end(event) {console.log(event)}
+          end(event) {
+            let temp = {"id": identifier, "boundaries": getStartAndEnd(event.target)};
+            dispatch(changeSliderBoundaries(temp))
+          }
         },
       })
       .resizable({
@@ -52,7 +71,7 @@ const ChunkView = (props) => {
                   'translate(' + x + 'px,' + '0px)'
               target.setAttribute('data-x', x);
             },
-            end(event) { console.log(event) }
+            end(event) { console.log(event.target) }
         },
         modifiers: [
             // keep the edges inside the parent
@@ -90,14 +109,6 @@ const ChunkView = (props) => {
     attachDraggableSlider();
   }
 
-  const selectChunk = (event) => {
-    let rect = canvasRef.current.getBoundingClientRect();
-    const actualX = event.pageX - rect.x;
-  }
-
-
-
-
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
@@ -118,7 +129,6 @@ const ChunkView = (props) => {
         className="chunk-view" 
         width={componentWidth} 
         height={componentHeight}
-        onClick={selectChunk} 
         ref={canvasRef} 
         {...props} 
       />

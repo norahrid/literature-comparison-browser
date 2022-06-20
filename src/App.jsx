@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard";
 import { existingOptions, genomeOptions } from "./constants";
 import GlobalView from "./components/GlobalView";
 import ChunkView from "./components/ChunkView";
+import SubregionView from "./components/SubregionView";
 
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
       <GlobalView />
 
       <ChunkView />
+
+      <SubregionView />
 
       {/* {headers} */}
 

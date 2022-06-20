@@ -7,12 +7,14 @@ import App from "./App";
 import FileDrop from "./components/FileDrop";
 import { dashboardReducer } from './reducers/dashboardSlice';
 import { globalReducer } from './reducers/globalSlice';
+import { chunkReducer } from "./reducers/chunkSlice";
 
 
 const store = configureStore({
   reducer: {
     dashboard: dashboardReducer,
     global: globalReducer,
+    chunk: chunkReducer,
   },
 });
 
