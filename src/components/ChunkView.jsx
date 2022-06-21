@@ -27,12 +27,13 @@ const ChunkView = (props) => {
         width = +width.slice(0, -2);
     }
     else {
-        width = 75;
+        width = sliderWidth;
     }
     const start = Math.abs(xPosition), end = start + width;
     return {
         'start': start,
-        'end': end
+        'end': end,
+        'width': width
     };
 }
 
@@ -53,7 +54,7 @@ const ChunkView = (props) => {
           },
           end(event) {
             let temp = {"id": identifier, "boundaries": getStartAndEnd(event.target)};
-            dispatch(changeSliderBoundaries(temp))
+            dispatch(changeSliderBoundaries(temp));
           }
         },
       })
@@ -72,7 +73,10 @@ const ChunkView = (props) => {
                   'translate(' + x + 'px,' + '0px)'
               target.setAttribute('data-x', x);
             },
-            end(event) { console.log(event.target) }
+            end(event) { 
+              let temp = {"id": identifier, "boundaries": getStartAndEnd(event.target)};
+              dispatch(changeSliderBoundaries(temp));
+            }
         },
         modifiers: [
             // keep the edges inside the parent
