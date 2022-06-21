@@ -1,9 +1,11 @@
 import { existingOptions, DEFAULT_DATA_TYPE } from "../constants";
-import { initializeRecord } from "../helpers/record";
 
 const initialState = {
     dataType: DEFAULT_DATA_TYPE,
-    ...initializeRecord(Object.keys(existingOptions[DEFAULT_DATA_TYPE]["dashboard"]), [])
+    ...Object.keys(existingOptions[DEFAULT_DATA_TYPE]["dashboard"]).reduce((data, k) => {
+        data[k] = [Object.keys(existingOptions[DEFAULT_DATA_TYPE]["dashboard"][k]["options"])[0]];
+        return data;
+    }, {})
 }
 
 export const changeDataTypeSelection = (newDataType) => {

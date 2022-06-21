@@ -68,7 +68,6 @@ const SubregionView = (props) => {
   
   return (
     <div>
-        <h2>{headers[2]}</h2>
         <canvas 
         className="subregion-view" 
         width={componentWidth} 

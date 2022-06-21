@@ -66,7 +66,6 @@ const GlobalView = (props) => {
   
   return (
     <div>
-      <h2>{headers[0]}</h2>
       <canvas 
         className="global-view" 
         width={componentWidth} 

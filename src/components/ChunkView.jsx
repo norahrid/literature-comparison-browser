@@ -118,7 +118,6 @@ const ChunkView = (props) => {
   
   return (
     <div className="chunk-outer-wrapper">
-      <h2>{headers[1]}</h2>
       <div className="chunk-inner-wrapper" style={{'width': componentWidth}}>
         <div className="chunk-window-wrapper" style={{'width': componentWidth}}>
           <div id="chunk-slider"
