@@ -3,22 +3,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
 import interact from "interactjs";
 import { changeSliderBoundaries } from "../reducers/chunkSlice";
-import { componentHeight, componentWidth, margin, sliderWidth, existingOptions } from "../constants";
-import { 
-  calculateGroupBoundaries, 
-  findBoundariesOfCharacteristic, 
-  computeProportions,
-  identifySelectedChunk } from "../helpers/boundaries";
+import { componentHeight, componentWidth, sliderWidth, existingOptions } from "../constants";
+import { findBoundariesOfCharacteristic } from "../helpers/boundaries";
 import bookData from "../assets/Pride_and_Prejudice_data.json";
 
 const ChunkView = (props) => {
   const canvasRef = useRef(null);
+  const state = useSelector(state => state);
   const dispatch = useDispatch();
-  const chunkSelection = useSelector(state => state["global"]["chunkSelection"]["PRIDE_AND_PREJUDICE"]);
+  const chunkSelection = state["global"]["chunkSelection"]["PRIDE_AND_PREJUDICE"];
+  const dataType = state["dashboard"]["dataType"];
   const { low, high } = findBoundariesOfCharacteristic(bookData, "length");
   const identifier = bookData[1][0]["title"].toUpperCase().replaceAll(" ", "_");
   const data = bookData[chunkSelection];
-  const headers = existingOptions["LITERATURE"]["headers"];
+  const headers = existingOptions[dataType]["headers"];
 
   const getStartAndEnd = (target) => {
     let xPosition = (parseFloat(target.getAttribute('data-x')) || 0),
@@ -93,8 +91,6 @@ const ChunkView = (props) => {
 
   }
 
-  
-
   const draw = (ctx, data) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
@@ -110,7 +106,6 @@ const ChunkView = (props) => {
         ctx.fillStyle = colour;
         ctx.fillRect(i*unit, 0, unit, componentHeight);
     }
-
     attachDraggableSlider();
   }
 
@@ -139,8 +134,6 @@ const ChunkView = (props) => {
         {...props} 
       />
     </div>
-
-
   )
 };
 export default ChunkView;

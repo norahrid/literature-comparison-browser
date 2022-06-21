@@ -12,14 +12,16 @@ import bookData from "../assets/Pride_and_Prejudice_data.json";
 
 const GlobalView = (props) => {
   const canvasRef = useRef(null);
+  const state = useSelector(state => state);
   const dispatch = useDispatch();
-  //const [mouse, setMouse] = useState({x: null, y: null});
+
+  const dataType = state["dashboard"]["dataType"];
   const { low, high } = findBoundariesOfCharacteristic(bookData, "length");
   const width = componentWidth - (margin * (Object.keys(bookData).length + 1))
   const proportions = computeProportions(bookData);
   const boundaries = calculateGroupBoundaries(bookData, proportions, width);
   const identifier = bookData[1][0]["title"].toUpperCase().replaceAll(" ", "_");
-  const headers = existingOptions["LITERATURE"]["headers"];
+  const headers = existingOptions[dataType]["headers"];
 
   const draw = (ctx, data) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
@@ -54,9 +56,6 @@ const GlobalView = (props) => {
       dispatch(changeChunkSelection({"id": identifier, "chunk": selectedChunk}));
     }
   }
-
-
-
 
   useEffect(() => {
     const canvas = canvasRef.current;

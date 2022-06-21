@@ -14,14 +14,12 @@ const SubregionView = (props) => {
   const canvasRef = useRef(null);
   const dispatch = useDispatch();
   const state = useSelector(state => state);
+  const dataType = state["dashboard"]["dataType"];
   const chunkSelection = state["global"]["chunkSelection"]["PRIDE_AND_PREJUDICE"];
   const { start, end, width } = state["chunk"]["PRIDE_AND_PREJUDICE"]
-  //const [mouse, setMouse] = useState({x: null, y: null});
   const { low, high } = findBoundariesOfCharacteristic(bookData, "length");
   const data = bookData[chunkSelection];
-  const headers = existingOptions["LITERATURE"]["headers"];
-
-  console.log(data)
+  const headers = existingOptions[dataType]["headers"];
 
   const getSliderSelection = () => {
     let selection = [];

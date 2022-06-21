@@ -3,31 +3,36 @@ import { useSelector, useDispatch } from "react-redux";
 import "../main.css";
 import MultiSelector from "./MultiSelector";
 import SingleSelector from "./SingleSelector";
-import { genomeOptions, clades, completeOptions, trackOptions, existingOptions } from "../constants";
-import { changeDataTypeSelection } from "../reducers/dashboardSlice";
+import { existingOptions } from "../constants";
+import { changeDataTypeSelection, changeMenu1Selection, changeMenu2Selection } from "../reducers/dashboardSlice";
 
-const Dashboard = (props) => {
+const Dashboard = () => {
     const dispatch = useDispatch();
     const state = useSelector(state => state);
+    const dataType = state["dashboard"]["dataType"];
+
     console.log(state)
 
-    const handleDataTypeChange = () => {
-        console.log("hit")
+    const handleDataTypeChange = (newSelection) => {
+        dispatch(changeDataTypeSelection(newSelection));
     }
 
-    const elements = Object.values(existingOptions["LITERATURE"]["dashboard"]).map((el, i) => {
+    const handleMenuChange = (newSelection, menuNumber) => {
+        if (menuNumber === 1) dispatch(changeMenu1Selection(newSelection));
+        else if (menuNumber === 2) dispatch(changeMenu2Selection(newSelection));
+    }
+
+    const elements = Object.values(existingOptions[dataType]["dashboard"]).map((el, i) => {
         return (
             <MultiSelector 
                 key={`${el["label"]}-sel-${i}`}
                 label={el["label"]} 
-                handleChange={handleDataTypeChange}
+                handleChange={sel => handleMenuChange(sel, i+1)}
                 options={el["options"]}
                 minElementRequirement={el["minElementRequirement"]} 
             />
-        )
+        );
     })
-
-
 
     {/* stopPropagation prevents selecting a chromosome when the clade dropdown is open */}
     return (
@@ -42,46 +47,8 @@ const Dashboard = (props) => {
                 handleChange={handleDataTypeChange}
             />
             {elements}
-            {/* <div className="dashboard-container dashboard-related">
-                <MultiSelector 
-                    label="Genome" 
-                    handleChange={handleGenomeChange}
-                    options={genomeOptions} 
-                    minElementRequirement={1}
-                />
-                <MultiSelector 
-                    label="Clade" 
-                    handleChange={handleCladeChange}
-                    options={clades}
-                    minElementRequirement={1} 
-                />
-            </div>
-
-            <div className="dashboard-container dashboard-related">
-                <MultiSelector
-                    label="Complete"
-                    handleChange={handleCompleteFilterChange}
-                    options={completeOptions}
-                    minElementRequirement={1}
-                />
-                <MultiSelector
-                    label="Track"
-                    handleChange={handleTrackChange}
-                    options={trackOptions}
-                    minElementRequirement={0}
-                />
-            </div> */}
-
-    
-            {/* <SingleSelector
-                label="Complete"
-                current={props.completeFilter}
-                options={completeOptions}
-                handleChange={props.handleCompleteFilterChange}
-                genome={"na"}
-            /> */}
         </div>
-    )
+    );
 }
 
 export default Dashboard;

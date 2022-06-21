@@ -4,7 +4,7 @@ import chroma from "chroma-js";
 import { clades } from "../constants";
 
 const MultiSelector = (props) => {
-  const [cladeSelection, setCladeSelection] = useState([]);
+  const [selection, setSelection] = useState([]);
   const [buttonLabel, setButtonLabel] = useState("Filter");
 
   const handleChange = (event) => {
@@ -12,12 +12,11 @@ const MultiSelector = (props) => {
     for (let i = 0; i < event.length; i++) {
       choices.push(event[i]["value"]);
     }
-    console.log(choices)
-    setCladeSelection(choices);
+    setSelection(choices);
   };
 
   const handleClick = () => {
-    if (cladeSelection.length >= props.minElementRequirement) props.handleChange(cladeSelection);
+    if (selection.length >= props.minElementRequirement) props.handleChange(selection);
     else alert(`Select at least ${props.minElementRequiremen} item to display in the map.`);
   };
 

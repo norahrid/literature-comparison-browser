@@ -13,12 +13,36 @@ export const changeDataTypeSelection = (newDataType) => {
     };
 }
 
+export const changeMenu1Selection = (newSelection) => {
+    return {
+        type: "dashboard/menu1SelectionChanged",
+        payload: newSelection
+    };
+}
+
+export const changeMenu2Selection = (newSelection) => {
+    return {
+        type: "dashboard/menu2SelectionChanged",
+        payload: newSelection
+    };
+}
+
 export const dashboardReducer = (state = initialState, action) => {
     switch(action.type) {
         case "dashboard/dataTypeSelectionChanged":
             return {
                 ...state,
-                clades: action.payload
+                dataType: action.payload
+            };
+        case "dashboard/menu1SelectionChanged":
+            return {
+                ...state,
+                1: action.payload
+            };
+        case "dashboard/menu2SelectionChanged":
+            return {
+                ...state,
+                2: action.payload
             };
         default:
             return state;
