@@ -8,7 +8,6 @@ import {
   findBoundariesOfCharacteristic, 
   computeProportions,
   identifySelectedChunk } from "../helpers/boundaries";
-import bookData from "../assets/Pride_and_Prejudice_data.json";
 
 const GlobalView = (props) => {
   const canvasRef = useRef(null);
@@ -16,12 +15,15 @@ const GlobalView = (props) => {
   const dispatch = useDispatch();
 
   const dataType = state["dashboard"]["dataType"];
-  const { low, high } = findBoundariesOfCharacteristic(bookData, "length");
-  const width = componentWidth - (margin * (Object.keys(bookData).length + 1))
-  const proportions = computeProportions(bookData);
-  const boundaries = calculateGroupBoundaries(bookData, proportions, width);
-  const identifier = bookData[1][0]["title"].toUpperCase().replaceAll(" ", "_");
+  const data = props.data;
+  const { low, high } = findBoundariesOfCharacteristic(data, "length");
+  const width = componentWidth - (margin * (Object.keys(data).length + 1))
+  const proportions = computeProportions(data);
+  const boundaries = calculateGroupBoundaries(data, proportions, width);
   const headers = existingOptions[dataType]["headers"];
+  
+  let identifier = props.id;
+  if (dataType === "LITERATURE") identifier = data[1][0]["title"].toUpperCase().replaceAll(" ", "_");
 
   const draw = (ctx, data) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
@@ -51,7 +53,7 @@ const GlobalView = (props) => {
     let rect = canvasRef.current.getBoundingClientRect();
     const actualX = event.pageX - rect.x;
     // No need to check for y position since the canvas = track height
-    const selectedChunk = identifySelectedChunk(actualX, bookData, boundaries)
+    const selectedChunk = identifySelectedChunk(actualX, data, boundaries)
     if (selectedChunk !== null) {
       dispatch(changeChunkSelection({"id": identifier, "chunk": selectedChunk}));
     }
@@ -61,7 +63,7 @@ const GlobalView = (props) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    draw(context, bookData)
+    draw(context, data)
   }, [draw]);
   
   return (

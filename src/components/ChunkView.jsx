@@ -5,18 +5,20 @@ import interact from "interactjs";
 import { changeSliderBoundaries } from "../reducers/chunkSlice";
 import { componentHeight, componentWidth, sliderWidth, existingOptions } from "../constants";
 import { findBoundariesOfCharacteristic } from "../helpers/boundaries";
-import bookData from "../assets/Pride_and_Prejudice_data.json";
 
 const ChunkView = (props) => {
   const canvasRef = useRef(null);
   const state = useSelector(state => state);
   const dispatch = useDispatch();
-  const chunkSelection = state["global"]["chunkSelection"]["PRIDE_AND_PREJUDICE"];
+  const chunkSelection = state["global"]["chunkSelection"][props.id];
   const dataType = state["dashboard"]["dataType"];
-  const { low, high } = findBoundariesOfCharacteristic(bookData, "length");
-  const identifier = bookData[1][0]["title"].toUpperCase().replaceAll(" ", "_");
-  const data = bookData[chunkSelection];
+  const { low, high } = findBoundariesOfCharacteristic(props.data, "length");
+  const data = props.data[chunkSelection];
+  //bookData[chunkSelection];
   const headers = existingOptions[dataType]["headers"];
+
+  let identifier = props.id;
+  if (dataType === "LITERATURE") identifier = data[0]["title"].toUpperCase().replaceAll(" ", "_");
 
   const getStartAndEnd = (target) => {
     let xPosition = (parseFloat(target.getAttribute('data-x')) || 0),

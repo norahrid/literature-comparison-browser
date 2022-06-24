@@ -32,10 +32,7 @@ export const changeMenu2Selection = (newSelection) => {
 export const dashboardReducer = (state = initialState, action) => {
     switch(action.type) {
         case "dashboard/dataTypeSelectionChanged":
-            return {
-                ...state,
-                dataType: action.payload
-            };
+            return action.payload;
         case "dashboard/menu1SelectionChanged":
             return {
                 ...state,

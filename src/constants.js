@@ -69,6 +69,27 @@ export const existingOptions = {
         minElementRequirement: 1
       }
     }
+  },
+  GENE_DENSITY: {
+    label: "Gene density",
+    value: "GENE_DENSITY",
+    headers: ["Genome", "Chromosome", "Subregion"],
+    dashboard: {
+      1: {
+        label: "Genome",
+        options: {
+          LENS_CULINARIS: {
+            label: "Lens culinaris",
+            value: "LENS_CULINARIS"
+          },
+          LENS_ERVOIDES: {
+            label: "Lens ervoides",
+            value: "LENS_ERVOIDES"
+          }
+        },
+        minElementRequirement: 1
+      }
+    }
   }
 }
 

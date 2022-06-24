@@ -8,25 +8,36 @@ import {
   findBoundariesOfCharacteristic, 
   computeProportions,
   identifySelectedChunk } from "../helpers/boundaries";
-import bookData from "../assets/Pride_and_Prejudice_data.json";
 
 const SubregionView = (props) => {
   const canvasRef = useRef(null);
   const dispatch = useDispatch();
   const state = useSelector(state => state);
   const dataType = state["dashboard"]["dataType"];
-  const chunkSelection = state["global"]["chunkSelection"]["PRIDE_AND_PREJUDICE"];
-  const { start, end, width } = state["chunk"]["PRIDE_AND_PREJUDICE"]
-  const { low, high } = findBoundariesOfCharacteristic(bookData, "length");
-  const data = bookData[chunkSelection];
+  const chunkSelection = state["global"]["chunkSelection"][props.id];
+  const { start, end, width } = state["chunk"][props.id]
+  const { low, high } = findBoundariesOfCharacteristic(props.data, "length");
+  const data = props.data[chunkSelection];
   const headers = existingOptions[dataType]["headers"];
 
   const getSliderSelection = () => {
     let selection = [];
+    const unit = componentWidth / data.length;
     for (let i=0; i<data.length; i++) {
-        if (data[i].start >= start && data[i].end <= end) {
+
+        if (dataType === "GENE_DENSITY") {
+          const elemStart = unit * i;
+          const elemEnd = unit + (unit * i);
+          console.log(elemStart, elemEnd)
+          if (elemStart >= start && elemEnd <= end) {
+              selection.push(data[i]);
+          }
+        }
+        else {
+          if (data[i].start >= start && data[i].end <= end) {
             selection.push(data[i]);
         }
+        }       
     }
     return selection;
   }
@@ -54,16 +65,13 @@ const SubregionView = (props) => {
         ctx.fillRect(i * unit, 0, unit, componentHeight);
 
     }
-
-
   }
-
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    draw(context, bookData)
+    draw(context, props.data)
   }, [draw]);
   
   return (

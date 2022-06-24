@@ -14,7 +14,14 @@ const Dashboard = () => {
     console.log(state)
 
     const handleDataTypeChange = (newSelection) => {
-        dispatch(changeDataTypeSelection(newSelection));
+        const dashboardState = {
+            dataType: newSelection,
+            ...Object.keys(existingOptions[newSelection]["dashboard"]).reduce((data, k) => {
+                data[k] = [Object.keys(existingOptions[newSelection]["dashboard"][k]["options"])[0]];
+                return data;
+            }, {})
+        }
+        dispatch(changeDataTypeSelection(dashboardState));
     }
 
     const handleMenuChange = (newSelection, menuNumber) => {

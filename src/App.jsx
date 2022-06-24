@@ -11,7 +11,7 @@ function App() {
   const state = useSelector(state => state);
   const dataType = state["dashboard"]["dataType"];
   const headers = existingOptions[dataType]["headers"];
-
+  
   const elements = headers.map((el, i) => {
     return (
       <div>

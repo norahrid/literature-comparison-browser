@@ -2,11 +2,9 @@ import React from "react";
 import Select from "react-select";
 
 const SingleSelector = (props) => {
-  const onChange = (event, genome) => {
-    props.handleChange(event, genome);
+  const onChange = (event) => {
+    props.handleChange(event.value);
   }
-
-  console.log(props.current)
 
   const current = props.current === null ? null : props.options[props.current.toUpperCase()];
 
@@ -17,7 +15,7 @@ const SingleSelector = (props) => {
         //defaultValue={props.options[props.current.toUpperCase()]}
         defaultValue={current}
         options={Object.values(props.options)}
-        onChange={e => onChange(e, props.genome)}
+        onChange={onChange}
       />
     </div>
   );
