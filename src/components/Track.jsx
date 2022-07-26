@@ -15,8 +15,8 @@ const Track = (props) => {
 
     const constructElement = (trackType, trackData, id) => {
       if (trackType === 1) return constructTrack1(trackData, id);
-      // else if (trackType === 2) return constructTrack2(trackData, id);
-      // else if (trackType === 3) return constructTrack3(trackData, id);
+      else if (trackType === 2) return constructTrack2(trackData, id);
+      else if (trackType === 3) return constructTrack3(trackData, id);
     }
 
     const constructTrack1 = (trackData, id) => {

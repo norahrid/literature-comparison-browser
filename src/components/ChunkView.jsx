@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
 import interact from "interactjs";
-import { changeSliderBoundaries } from "../reducers/chunkSlice";
+import { changeSliderBoundaries } from "../redux/reducers/chunkSlice";
 import { componentHeight, componentWidth, sliderWidth, existingOptions } from "../constants";
 import { findBoundariesOfCharacteristic } from "../helpers/boundaries";
 
@@ -16,6 +16,8 @@ const ChunkView = (props) => {
   const data = props.data[chunkSelection];
   //bookData[chunkSelection];
   const headers = existingOptions[dataType]["headers"];
+  
+  console.log(state)
 
   let identifier = props.id;
   if (dataType === "LITERATURE") identifier = data[0]["title"].toUpperCase().replaceAll(" ", "_");

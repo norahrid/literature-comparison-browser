@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
 import interact from "interactjs";
-import { changeSliderBoundaries } from "../reducers/chunkSlice";
+import { changeSliderBoundaries } from "../redux/reducers/chunkSlice";
 import { componentHeight, componentWidth, sliderWidth, existingOptions } from "../constants";
 import { findBoundariesOfCharacteristic } from "../helpers/boundaries";
 // import data from "../assets/Pride_and_Prejudice_data.json";

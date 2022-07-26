@@ -5,10 +5,10 @@ import { Provider } from "react-redux";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import FileDrop from "./components/FileDrop";
-import { dashboardReducer } from './reducers/dashboardSlice';
-import { globalReducer } from './reducers/globalSlice';
-import { chunkReducer } from "./reducers/chunkSlice";
-import { subregionReducer } from "./reducers/subregionSlice";
+import { dashboardReducer } from './redux/reducers/dashboardSlice';
+import { globalReducer } from './redux/reducers/globalSlice';
+import { chunkReducer } from "./redux/reducers/chunkSlice";
+import { subregionReducer } from "./redux/reducers/subregionSlice";
 
 
 const store = configureStore({
