@@ -5,6 +5,7 @@ import "./main.css";
 import Dashboard from "./components/Dashboard";
 import Track from "./components/Track";
 import { existingOptions, } from "./constants";
+import Legend from "./components/Legend";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
     <div className="main-app">
       <Dashboard />
       {elements}
+      <Legend />
     </div>
   );
 }

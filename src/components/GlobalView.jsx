@@ -41,7 +41,7 @@ const GlobalView = (props) => {
       const chunkStart = ((key - 1) * margin) + newStart;
       
       for (let i=0; i < data[key].length; i++) {
-        const colour = interpolateRdBu(colourScale(data[key][i]["length"]));
+        const colour = interpolateReds(colourScale(data[key][i]["length"]));
         ctx.fillStyle = colour;
         ctx.fillRect(chunkStart + (i*unit), 0, unit, componentHeight);
       }

@@ -46,6 +46,10 @@ export const existingOptions = {
           PRIDE_AND_PREJUDICE: {
             label: "Pride and Prejudice",
             value: "PRIDE_AND_PREJUDICE"
+          },
+          ALICES_ADVENTURES_IN_WONDERLAND: {
+            label: "Alice's Adventures in Wonderland",
+            value: "ALICES_ADVENTURES_IN_WONDERLAND"
           }
         },
         minElementRequirement: 1

@@ -104,7 +104,7 @@ const ChunkView = (props) => {
     const unit = componentWidth / data.length;
 
     for (let i=0; i<data.length; i++) {
-        const colour = interpolateRdBu(colourScale(data[i]["length"]));
+        const colour = interpolateReds(colourScale(data[i]["length"]));
         ctx.fillStyle = colour;
         ctx.fillRect(i*unit, 0, unit, componentHeight);
     }

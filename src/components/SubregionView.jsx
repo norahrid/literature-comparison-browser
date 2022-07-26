@@ -23,18 +23,17 @@ const SubregionView = (props) => {
   const getSliderSelection = () => {
     let selection = [];
     const unit = componentWidth / data.length;
+    const lowest = data[0].start;
     for (let i=0; i<data.length; i++) {
-
         if (dataType === "GENE_DENSITY") {
           const elemStart = unit * i;
           const elemEnd = unit + (unit * i);
-          console.log(elemStart, elemEnd)
           if (elemStart >= start && elemEnd <= end) {
               selection.push(data[i]);
           }
         }
         else {
-          if (data[i].start >= start && data[i].end <= end) {
+          if (data[i].start - lowest >= start && data[i].end - lowest <= end) {
             selection.push(data[i]);
         }
         }       
@@ -54,11 +53,10 @@ const SubregionView = (props) => {
     // ctx.fillStyle = 'red';
     // ctx.fillRect(0, 0, componentWidth, componentHeight);
 
-
     const unit = componentWidth / selection.length;
 
     for (let i=0; i<selection.length; i++) {
-        const colour = interpolateRdBu(colourScale(selection[i]["length"]));
+        const colour = interpolateReds(colourScale(selection[i]["length"]));
         ctx.fillStyle = colour;
 
         //const elemStart = ((selection[i] - start) / width) * componentWidth;
