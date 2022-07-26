@@ -1,5 +1,5 @@
-import { existingOptions, DEFAULT_DATA_TYPE } from "../constants";
-import { initializeRecord } from "../helpers/record";
+import { existingOptions, DEFAULT_DATA_TYPE } from "../../constants";
+import { initializeRecord } from "../../helpers/record";
 
 const initialOptions = Object.values(existingOptions).reduce((data, k) => {
     data.push(Object.keys(k["dashboard"][1]["options"])[0]);

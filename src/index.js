@@ -8,6 +8,7 @@ import FileDrop from "./components/FileDrop";
 import { dashboardReducer } from './reducers/dashboardSlice';
 import { globalReducer } from './reducers/globalSlice';
 import { chunkReducer } from "./reducers/chunkSlice";
+import { subregionReducer } from "./reducers/subregionSlice";
 
 
 const store = configureStore({
@@ -15,6 +16,7 @@ const store = configureStore({
     dashboard: dashboardReducer,
     global: globalReducer,
     chunk: chunkReducer,
+    subregion: subregionReducer,
   },
 });
 

@@ -1,4 +1,4 @@
-import { existingOptions, DEFAULT_DATA_TYPE } from "../constants";
+import { existingOptions, DEFAULT_DATA_TYPE } from "../../constants";
 
 const initialState = {
     dataType: DEFAULT_DATA_TYPE,

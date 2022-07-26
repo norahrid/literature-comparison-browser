@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
-import { changeChunkSelection } from "../reducers/globalSlice";
+import { changeChunkSelection } from "../redux/reducers/globalSlice";
 import { componentHeight, componentWidth, margin, existingOptions } from "../constants";
 import { 
   calculateGroupBoundaries, 
@@ -21,6 +21,8 @@ const GlobalView = (props) => {
   const proportions = computeProportions(data);
   const boundaries = calculateGroupBoundaries(data, proportions, width);
   const headers = existingOptions[dataType]["headers"];
+
+  console.log(data)
   
   let identifier = props.id;
   if (dataType === "LITERATURE") identifier = data[1][0]["title"].toUpperCase().replaceAll(" ", "_");

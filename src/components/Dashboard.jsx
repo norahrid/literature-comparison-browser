@@ -4,7 +4,7 @@ import "../main.css";
 import MultiSelector from "./MultiSelector";
 import SingleSelector from "./SingleSelector";
 import { existingOptions } from "../constants";
-import { changeDataTypeSelection, changeMenu1Selection, changeMenu2Selection } from "../reducers/dashboardSlice";
+import { changeDataTypeSelection, changeMenu1Selection, changeMenu2Selection } from "../redux/reducers/dashboardSlice";
 
 const Dashboard = () => {
     const dispatch = useDispatch();
