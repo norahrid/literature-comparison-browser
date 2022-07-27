@@ -38,6 +38,7 @@ export const existingOptions = {
   LITERATURE: {
     label: "Literature",
     value: "LITERATURE",
+    legendLabel: "Word length",
     headers: ["Book", "Chapter", "Subsection"],
     dashboard: {
       1: {
@@ -52,7 +53,7 @@ export const existingOptions = {
             value: "ALICES_ADVENTURES_IN_WONDERLAND"
           }
         },
-        minElementRequirement: 1
+        minElementRequirement: 1,
       },
       2: {
         label: "Words",
@@ -77,6 +78,7 @@ export const existingOptions = {
   GENE_DENSITY: {
     label: "Gene density",
     value: "GENE_DENSITY",
+    legendLabel: "Gene density",
     headers: ["Genome", "Chromosome", "Subregion"],
     dashboard: {
       1: {

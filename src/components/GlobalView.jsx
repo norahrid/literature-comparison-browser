@@ -8,6 +8,7 @@ import {
   findBoundariesOfCharacteristic, 
   computeProportions,
   identifySelectedChunk } from "../helpers/boundaries";
+import { setColourScheme } from "../helpers/colours";
 
 const GlobalView = (props) => {
   const canvasRef = useRef(null);
@@ -29,9 +30,9 @@ const GlobalView = (props) => {
   const draw = (ctx, data) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
-    var colourScale = scaleLinear()
-    .domain([low, high])
-    .range([0, 1]);
+    // var colourScale = scaleLinear()
+    // .domain([low, high])
+    // .range([0, 1]);
 
     let newStart = 0;
     for (let key in data) {
@@ -47,7 +48,6 @@ const GlobalView = (props) => {
       ctx.fillText(key, chunkStart + ((data[key].length*unit)/4), componentHeight + 13);
 
       if (chunkSelection == key) {
-        console.log(chunkStart, chunkStart + unit)
         ctx.strokeStyle = "white";
         ctx.beginPath();
         ctx.moveTo(chunkStart, componentHeight + 3);
@@ -56,11 +56,9 @@ const GlobalView = (props) => {
       }
       
       for (let i=0; i < data[key].length; i++) {
-        const colour = interpolateReds(colourScale(data[key][i]["length"]));
+        const colour = setColourScheme(props.colourScale, data[key][i]["length"]);
         ctx.fillStyle = colour;
         ctx.fillRect(chunkStart + (i*unit), 0, unit, componentHeight);
-
-
       }
       newStart += rectWidth;
     }

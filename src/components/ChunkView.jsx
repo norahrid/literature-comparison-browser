@@ -5,6 +5,7 @@ import interact from "interactjs";
 import { changeSliderBoundaries } from "../redux/reducers/chunkSlice";
 import { componentHeight, componentWidth, sliderWidth, existingOptions } from "../constants";
 import { findBoundariesOfCharacteristic } from "../helpers/boundaries";
+import { setColourScheme } from "../helpers/colours";
 
 const ChunkView = (props) => {
   const canvasRef = useRef(null);
@@ -17,9 +18,6 @@ const ChunkView = (props) => {
   //bookData[chunkSelection];
   const headers = existingOptions[dataType]["headers"];
   
-  // console.log(state)
-  console.log(chunkSelection)
-
   let identifier = props.id;
   if (dataType === "LITERATURE") identifier = data[0]["title"].toUpperCase().replaceAll(" ", "_");
 
@@ -99,15 +97,15 @@ const ChunkView = (props) => {
   const draw = (ctx, data) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
-    var colourScale = scaleLinear()
-    .domain([low, high])
-    .range([0, 1]);
+    // var colourScale = scaleLinear()
+    // .domain([low, high])
+    // .range([0, 1]);
 
 
     const unit = componentWidth / data.length;
 
     for (let i=0; i<data.length; i++) {
-        const colour = interpolateReds(colourScale(data[i]["length"]));
+        const colour = setColourScheme(props.colourScale, data[i]["length"]);
         ctx.fillStyle = colour;
         ctx.fillRect(i*unit, 0, unit, componentHeight);
     }

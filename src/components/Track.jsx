@@ -1,50 +1,50 @@
 import React, { useState } from "react";
 import _ from "lodash";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import GlobalView from "./GlobalView";
 import ChunkView from "./ChunkView";
 import SubregionView from "./SubregionView";
 import { dataFileManager } from "../dataFileManager";
 
-const Track = (props) => {
+const Track = ({trackType, colourScale}) => {
 
     const state = useSelector(state => state);
     const tracks = state["dashboard"][1];
     const dataType = state["dashboard"]["dataType"];
     const data = dataFileManager[dataType];
 
-    const constructElement = (trackType, trackData, id) => {
-      if (trackType === 1) return constructTrack1(trackData, id);
-      else if (trackType === 2) return constructTrack2(trackData, id);
-      else if (trackType === 3) return constructTrack3(trackData, id);
+    const constructElement = (trackType, trackData, id, colourScale) => {
+      if (trackType === 1) return constructTrack1(trackData, id, colourScale);
+      else if (trackType === 2) return constructTrack2(trackData, id, colourScale);
+      else if (trackType === 3) return constructTrack3(trackData, id, colourScale);
     }
 
-    const constructTrack1 = (trackData, id) => {
+    const constructTrack1 = (trackData, id, colourScale) => {
       return (
-        <GlobalView data={trackData} id={id} />
+        <GlobalView data={trackData} id={id} colourScale={colourScale} />
       );
     }
 
-    const constructTrack2 = (trackData, id) => {
+    const constructTrack2 = (trackData, id, colourScale) => {
         return (
-          <ChunkView data={trackData} id={id} />
+          <ChunkView data={trackData} id={id} colourScale={colourScale}  />
         );
     }
 
-    const constructTrack3 = (trackData, id) => {
+    const constructTrack3 = (trackData, id, colourScale) => {
         return (
-          <SubregionView data={trackData} id={id} />
+          <SubregionView data={trackData} id={id} colourScale={colourScale} />
         );
     }
 
     // Generate list of components depending on which track type is selected
     const elements = tracks.map((t, i) => {
-        return (
-          <div key={"element-"+i} className="dashboard-container track-row-2">
-            {/* <p className="side-label">{t}</p> */}
-            {constructElement(props.trackType, data[t], t)}
-          </div>
-        )
+      return (
+        <div key={"element-"+i} className="dashboard-container track-row-2">
+          {/* <p className="side-label">{t}</p> */}
+          {constructElement(trackType, data[t], t, colourScale)}
+        </div>
+      )
     });
 
     return (

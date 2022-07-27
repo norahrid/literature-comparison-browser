@@ -6,6 +6,7 @@ import { componentHeight, componentWidth, margin, existingOptions } from "../con
 import { findBoundariesOfCharacteristic, getSliderSelection } from "../helpers/boundaries";
 import formatActionPayload from "../redux/formatActionPayload";
 import { changeTooltipVisibility } from "../redux/reducers/subregionSlice";
+import { setColourScheme } from "../helpers/colours";
 
 const SubregionView = (props) => {
   const canvasRef = useRef(null);
@@ -70,9 +71,9 @@ const SubregionView = (props) => {
   const draw = (ctx, selection) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
-    var colourScale = scaleLinear()
-    .domain([low, high])
-    .range([0, 1]);
+    // var colourScale = scaleLinear()
+    // .domain([low, high])
+    // .range([0, 1]);
 
     // ctx.fillStyle = 'red';
     // ctx.fillRect(0, 0, componentWidth, componentHeight);
@@ -80,7 +81,7 @@ const SubregionView = (props) => {
     const unit = componentWidth / selection.length;
 
     for (let i=0; i<selection.length; i++) {
-        const colour = interpolateReds(colourScale(selection[i]["length"]));
+        const colour = setColourScheme(props.colourScale, selection[i]["length"]);
         ctx.fillStyle = colour;
 
         //const elemStart = ((selection[i] - start) / width) * componentWidth;

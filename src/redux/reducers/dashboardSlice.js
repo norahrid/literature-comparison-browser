@@ -1,12 +1,14 @@
 import { existingOptions, DEFAULT_DATA_TYPE } from "../../constants";
 
-const initialState = {
+let initialState = {
     dataType: DEFAULT_DATA_TYPE,
     ...Object.keys(existingOptions[DEFAULT_DATA_TYPE]["dashboard"]).reduce((data, k) => {
         data[k] = [Object.keys(existingOptions[DEFAULT_DATA_TYPE]["dashboard"][k]["options"])[0]];
         return data;
     }, {})
 }
+
+initialState = {...initialState, "colourscale": null};
 
 export const changeDataTypeSelection = (newDataType) => {
     return {
@@ -29,6 +31,13 @@ export const changeMenu2Selection = (newSelection) => {
     };
 }
 
+export const changeColourScale = (newScale) => {
+    return {
+        type: "dashboard/colourScaleChanged",
+        payload: newScale
+    }
+}
+
 export const dashboardReducer = (state = initialState, action) => {
     switch(action.type) {
         case "dashboard/dataTypeSelectionChanged":
@@ -42,6 +51,11 @@ export const dashboardReducer = (state = initialState, action) => {
             return {
                 ...state,
                 2: action.payload
+            };
+        case "dashboard/colourScaleChanged":
+            return {
+                ...state,
+                "colourscale": action.payload
             };
         default:
             return state;
