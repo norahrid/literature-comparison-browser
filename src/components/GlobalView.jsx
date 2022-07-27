@@ -16,13 +16,12 @@ const GlobalView = (props) => {
 
   const dataType = state["dashboard"]["dataType"];
   const data = props.data;
+  const chunkSelection = state["global"]["chunkSelection"][props.id];
   const { low, high } = findBoundariesOfCharacteristic(data, "length");
   const width = componentWidth - (margin * (Object.keys(data).length + 1))
   const proportions = computeProportions(data);
   const boundaries = calculateGroupBoundaries(data, proportions, width);
   const headers = existingOptions[dataType]["headers"];
-
-  console.log(data)
   
   let identifier = props.id;
   if (dataType === "LITERATURE") identifier = data[1][0]["title"].toUpperCase().replaceAll(" ", "_");
@@ -41,11 +40,27 @@ const GlobalView = (props) => {
       const unit = rectWidth / data[key].length;
       // chunk starts at 1 but we need to start at 0
       const chunkStart = ((key - 1) * margin) + newStart;
+
+      ctx.beginPath();
+      ctx.font = "8px Arial";
+      ctx.fillStyle = 'grey';
+      ctx.fillText(key, chunkStart + ((data[key].length*unit)/4), componentHeight + 13);
+
+      if (chunkSelection == key) {
+        console.log(chunkStart, chunkStart + unit)
+        ctx.strokeStyle = "white";
+        ctx.beginPath();
+        ctx.moveTo(chunkStart, componentHeight + 3);
+        ctx.lineTo(chunkStart + (unit * data[key].length), componentHeight + 3);
+        ctx.stroke();
+      }
       
       for (let i=0; i < data[key].length; i++) {
         const colour = interpolateReds(colourScale(data[key][i]["length"]));
         ctx.fillStyle = colour;
         ctx.fillRect(chunkStart + (i*unit), 0, unit, componentHeight);
+
+
       }
       newStart += rectWidth;
     }
@@ -73,7 +88,7 @@ const GlobalView = (props) => {
       <canvas 
         className="global-view" 
         width={componentWidth} 
-        height={componentHeight}
+        height={componentHeight+20}
         onClick={selectChunk} 
         ref={canvasRef} 
         {...props} 

@@ -104,7 +104,7 @@ const SubregionView = (props) => {
         onMouseMove={mouseMove}
         onMouseLeave={mouseLeave}
         width={componentWidth} 
-        height={componentHeight}
+        height={componentHeight + 10}
         ref={canvasRef} 
         {...props} 
         />

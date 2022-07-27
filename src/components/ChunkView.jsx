@@ -17,7 +17,8 @@ const ChunkView = (props) => {
   //bookData[chunkSelection];
   const headers = existingOptions[dataType]["headers"];
   
-  console.log(state)
+  // console.log(state)
+  console.log(chunkSelection)
 
   let identifier = props.id;
   if (dataType === "LITERATURE") identifier = data[0]["title"].toUpperCase().replaceAll(" ", "_");
@@ -125,7 +126,7 @@ const ChunkView = (props) => {
       <div className="chunk-inner-wrapper" style={{'width': componentWidth}}>
         <div className="chunk-window-wrapper" style={{'width': componentWidth}}>
           <div id="chunk-slider"
-            style={{ 'height': componentHeight, 'width': sliderWidth }}>
+            style={{ 'height': componentHeight + 10, 'width': sliderWidth }}>
           </div>
         </div>
       </div>
