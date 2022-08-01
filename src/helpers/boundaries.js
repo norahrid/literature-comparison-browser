@@ -55,17 +55,24 @@ export const getSliderSelection = (data, dataType, start, end) => {
   const unit = componentWidth / data.length;
   const lowest = data[0].start;
   for (let i=0; i<data.length; i++) {
-      if (dataType === "GENE_DENSITY") {
-        const elemStart = unit * i;
-        const elemEnd = unit + (unit * i);
-        if (elemStart >= start && elemEnd <= end) {
-            sel.push(data[i]);
-        }
-      }
-      else {
-        if (data[i].start - lowest >= start && data[i].end - lowest <= end) {
-          sel.push(data[i]);
-        }
+    const elemStart = unit * i;
+    const elemEnd = unit + (unit * i);
+    if (elemStart >= start && elemEnd <= end) {
+      sel.push(data[i]);
+      // if (dataType === "GENE_DENSITY") {
+      //   const elemStart = unit * i;
+      //   const elemEnd = unit + (unit * i);
+        
+      //   if (elemStart >= start && elemEnd <= end) {
+      //       sel.push(data[i]);
+      //   }
+      // }
+      // else {
+      //   console.log(lowest, elemStart, elemEnd, componentWidth, start, end)
+      //   //console.log(data[i], lowest, start, end)
+      //   if (data[i].start - lowest >= start && data[i].end - lowest <= end) {
+      //     sel.push(data[i]);
+      //   }
       }       
   }
   return sel;

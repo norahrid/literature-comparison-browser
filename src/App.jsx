@@ -18,8 +18,6 @@ function App() {
   const tracks = state["dashboard"][1];
   const data = dataFileManager[dataType];
 
-  console.log(existingOptions[dataType].legendLabel)
-
   // set the colour scale wrt all of the selected items' boundaries
   let low = Infinity;
   let high = -Infinity;

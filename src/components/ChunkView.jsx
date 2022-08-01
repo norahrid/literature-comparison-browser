@@ -17,10 +17,10 @@ const ChunkView = (props) => {
   const data = props.data[chunkSelection];
   //bookData[chunkSelection];
   const headers = existingOptions[dataType]["headers"];
-  
-  let identifier = props.id;
-  if (dataType === "LITERATURE") identifier = data[0]["title"].toUpperCase().replaceAll(" ", "_");
 
+  let identifier = props.id;
+  if (dataType === "LITERATURE") identifier = data[0]["title"].toUpperCase().replaceAll(" ", "_").replaceAll("\u2019", "");
+  
   const getStartAndEnd = (target) => {
     let xPosition = (parseFloat(target.getAttribute('data-x')) || 0),
         width = target.style.width;
@@ -39,7 +39,7 @@ const ChunkView = (props) => {
 }
 
   const attachDraggableSlider = () => {
-    interact('#chunk-slider')
+    interact(`#${identifier}`)
       .draggable({
         inertia: true,
         listeners: {
@@ -47,7 +47,7 @@ const ChunkView = (props) => {
             var target = event.target;
             var x = (parseFloat(target.getAttribute('data-x')) || 0);
             x += event.dx;
-            if (x >= 0 && x <= componentWidth) {
+            if (x >= 0 && x <= componentWidth - event.rect.width) {
                 target.style.webkitTransform = target.style.transform =
                     'translate(' + x + 'px,' + '0px)'
                 target.setAttribute('data-x', x);
@@ -74,7 +74,7 @@ const ChunkView = (props) => {
                   'translate(' + x + 'px,' + '0px)'
               target.setAttribute('data-x', x);
             },
-            end(event) { 
+            end(event) {
               let temp = {"id": identifier, "boundaries": getStartAndEnd(event.target)};
               dispatch(changeSliderBoundaries(temp));
             }
@@ -100,6 +100,7 @@ const ChunkView = (props) => {
     // var colourScale = scaleLinear()
     // .domain([low, high])
     // .range([0, 1]);
+    let processedData = []
 
 
     const unit = componentWidth / data.length;
@@ -108,7 +109,9 @@ const ChunkView = (props) => {
         const colour = setColourScheme(props.colourScale, data[i]["length"]);
         ctx.fillStyle = colour;
         ctx.fillRect(i*unit, 0, unit, componentHeight);
+        processedData.push({...data[i], "calculatedStart": i*unit, "unitWidth": unit});
     }
+    //dispatch
     attachDraggableSlider();
   }
 
@@ -120,16 +123,16 @@ const ChunkView = (props) => {
   }, [draw]);
   
   return (
-    <div className="chunk-outer-wrapper">
-      <div className="chunk-inner-wrapper" style={{'width': componentWidth}}>
-        <div className="chunk-window-wrapper" style={{'width': componentWidth}}>
-          <div id="chunk-slider"
+    <div className={`chunk-outer-wrapper ${identifier}`}>
+      <div className={`chunk-inner-wrapper ${identifier}`} style={{'width': componentWidth}}>
+        <div className={`chunk-window-wrapper ${identifier}`} style={{'width': componentWidth}}>
+          <div className={`chunk-slider`} id={identifier}
             style={{ 'height': componentHeight + 10, 'width': sliderWidth }}>
           </div>
         </div>
       </div>
       <canvas 
-        className="chunk-view" 
+        className={`chunk-view ${identifier}`} 
         width={componentWidth} 
         height={componentHeight}
         ref={canvasRef} 

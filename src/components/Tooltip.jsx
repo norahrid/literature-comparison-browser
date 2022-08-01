@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Tooltip = ({selection, x, y}) => {
+export default ({selection={}, x, y}) => {
 
     return (
         <div className='graph-tooltip' style={{ 'left': x, 'top': y }}>
-            {selection.word && <p><b>Word: </b><span>{props.lineName}</span></p>}
+             {selection.word && <p><b>Word: </b>{selection.word}</p>}
         </div>
     );
 }
+

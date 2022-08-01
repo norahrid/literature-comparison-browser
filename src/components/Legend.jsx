@@ -13,8 +13,6 @@ import { setColourScheme } from "../helpers/colours";
 const Legend = (props) => {
   const canvasRef = useRef(null);
 
-  
-
   // const { low, high } = findBoundariesOfCharacteristic(data, "length");
   // const { low1, high1 } = findBoundariesOfCharacteristic(mdata, "length");
 
@@ -68,7 +66,7 @@ const Legend = (props) => {
       <p>{props.label}</p>
         <canvas 
             className="legend" 
-            width={componentWidth} 
+            width={componentWidth * 0.6} 
             height={55}
             ref={canvasRef} 
             {...props} 

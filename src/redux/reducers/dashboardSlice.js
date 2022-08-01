@@ -8,7 +8,7 @@ let initialState = {
     }, {})
 }
 
-initialState = {...initialState, "colourscale": null};
+initialState = {...initialState, "colourscale": null, "isTooltipVisible": false, "tooltipData": null};
 
 export const changeDataTypeSelection = (newDataType) => {
     return {
@@ -38,6 +38,20 @@ export const changeColourScale = (newScale) => {
     }
 }
 
+export const changeTooltipVisibility = (vis) => {
+    return {
+        type: "dashboard/tooltipVisibilityChanged",
+        payload: vis
+    }
+}
+
+export const changeTooltipData = (data) => {
+    return {
+        type: "dashboard/tooltipDataChanged",
+        payload: data
+    }
+}
+
 export const dashboardReducer = (state = initialState, action) => {
     switch(action.type) {
         case "dashboard/dataTypeSelectionChanged":
@@ -57,6 +71,10 @@ export const dashboardReducer = (state = initialState, action) => {
                 ...state,
                 "colourscale": action.payload
             };
+        case "dashboard/tooltipVisibilityChanged":
+            return Object.assign({}, state, { "isTooltipVisible": action.payload })
+        case "dashboard/tooltipDataChanged":
+            return Object.assign({}, state, { "tooltipData": action.payload})
         default:
             return state;
     };

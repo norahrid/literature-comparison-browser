@@ -39,6 +39,7 @@ const Track = ({trackType, colourScale}) => {
 
     // Generate list of components depending on which track type is selected
     const elements = tracks.map((t, i) => {
+    
       return (
         <div key={"element-"+i} className="dashboard-container track-row-2">
           {/* <p className="side-label">{t}</p> */}

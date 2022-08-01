@@ -6,7 +6,7 @@ const initialOptions = Object.values(existingOptions).reduce((data, k) => {
     return newData;
 }, []);
 
-const initialState = initializeRecord(initialOptions, {"start": 0, "end": 50, "width": 50});
+const initialState = initializeRecord(initialOptions, {"start": 0, "end": 50, "width": 50, "data":{}});
 // const initialState = initializeRecord(Object.keys(existingOptions[DEFAULT_DATA_TYPE]["dashboard"][1]["options"]), {"start": 0, "end": 50, "width": 50});
 
 
@@ -24,6 +24,13 @@ export const changeSliderWidth = (newSliderWidth) => {
     };
 }
 
+export const changeSliderSelection = (newSliderSelection) => {
+    return {
+        type: "chunk/sliderSelectionChanged",
+        payload: newSliderSelection
+    }
+}
+
 
 export const chunkReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -33,6 +40,11 @@ export const chunkReducer = (state = initialState, action) => {
                 ...state,
                 [id]: Object.assign({}, state[id], boundaries)
             };
+        case "chunk/sliderSelectionChanged":
+            return {
+                ...state,
+
+            }
         default:
             return state;
     };

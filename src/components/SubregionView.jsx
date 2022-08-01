@@ -5,7 +5,7 @@ import { changeChunkSelection } from "../redux/reducers/globalSlice";
 import { componentHeight, componentWidth, margin, existingOptions } from "../constants";
 import { findBoundariesOfCharacteristic, getSliderSelection } from "../helpers/boundaries";
 import formatActionPayload from "../redux/formatActionPayload";
-import { changeTooltipVisibility } from "../redux/reducers/subregionSlice";
+import { changeTooltipVisibility, changeTooltipData } from "../redux/reducers/dashboardSlice";
 import { setColourScheme } from "../helpers/colours";
 
 const SubregionView = (props) => {
@@ -20,52 +20,64 @@ const SubregionView = (props) => {
   const headers = existingOptions[dataType]["headers"];
   const selection = getSliderSelection(data, dataType, start, end);
 
-  // const calculateXCoordinates = (selection) => {
-  //   let calculatedSelection = {};
-  //   const unit = componentWidth / selection.length;
-  //   for (let i=0; i<selection.length; i++) {
-  //     const boundaries = [i * unit, (i * unit) + unit];
-  //     calculatedSelection[boundaries.join("-")] = selection[i];
-  //   }
-  //   return calculatedSelection;
-  // }
-
-  // const getSliderSelection = () => {
-  //   let sel = [];
-  //   const unit = componentWidth / data.length;
-  //   const lowest = data[0].start;
-  //   for (let i=0; i<data.length; i++) {
-  //       if (dataType === "GENE_DENSITY") {
-  //         const elemStart = unit * i;
-  //         const elemEnd = unit + (unit * i);
-  //         if (elemStart >= start && elemEnd <= end) {
-  //             sel.push(data[i]);
-  //         }
-  //       }
-  //       else {
-  //         if (data[i].start - lowest >= start && data[i].end - lowest <= end) {
-  //           sel.push(data[i]);
-  //         }
-  //       }       
-  //   }
-  //   return sel;
-  // }
+  console.log(state)
 
   const mouseMove = (event) => {
     const x = event.pageX;
-    const unit = componentWidth / selection.length;
-    for (let i=0; i<selection.length; i++) {
-      const start = i * unit;
-      const end = start + unit;
-      if (x >= start && x < end) {
-        dispatch(changeTooltipVisibility(formatActionPayload(props.id, true)));
+    const y = event.pageY;
+
+
+      var pageWidth = document.body.getBoundingClientRect().width,
+          canvasRect = event.currentTarget.getBoundingClientRect();
+      const xPosition = event.pageX - canvasRect.left,
+          yPosition = event.pageY - window.pageYOffset - canvasRect.top;
+
+        //event.target.className
+
+      const unit = componentWidth / selection.length;
+      let selectionIndex = selection[Math.floor(xPosition/unit)];
+      
+    
+      // for (let i=0; i<selection.length; i++) {
+      //   const start = i * unit;
+      //   const end = start + unit;
+      //   if (xPosition >= start && xPosition < end) {
+      //     selectionIndex = selection[i];
+      //     console.log(Math.floor(xPosition/unit), i)
+      //   }
+
+      // }
+
+      //console.log(selectionIndex)
+
+     
+
+      const temp = {
+        'x': event.pageX + 100 > pageWidth ? event.pageX - 100 : event.pageX + 25,
+        'y': event.pageY + 25,
+        "selection": selectionIndex
+
       }
-    }
+
+      //console.log(temp)
+
+      dispatch(changeTooltipData(temp))
+        
+      //   showTooltip(true, {
+      //     'x': event.pageX + 200 > pageWidth ? event.pageX - 200 : event.pageX + 25,
+      //     'y': event.pageY - 50,
+      //     lineName,
+      //     'SNP': dataPoint.locusName,
+      //     'allele': dataPoint.allele
+      // });
+
+      dispatch(changeTooltipVisibility(true));
+
 
   }
 
   const mouseLeave = () => {
-    dispatch(changeTooltipVisibility(formatActionPayload(props.id, false)));
+    dispatch(changeTooltipVisibility(false));
   }
 
   const draw = (ctx, selection) => {
@@ -89,7 +101,6 @@ const SubregionView = (props) => {
 
     }
   }
-
 
   useEffect(() => {
     const canvas = canvasRef.current;

@@ -130,7 +130,7 @@ input:focus {
   background-color: aliceblue;
 }
 
-#chunk-slider {
+.chunk-slider {
   /* width: 50px; */
   background-color: #4c585d36;
   touch-action: none;
@@ -160,5 +160,21 @@ input:focus {
   z-index: 30;
   position: absolute;
   top: 3px;
+}
+
+.graph-tooltip {
+  position: absolute;
+  width: 100px;
+  background: #253B46;
+  min-height: 20px;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 12px;
+  z-index: 100;
+  color: white;
+}
+
+.graph-tooltip span {
+  white-space: pre-wrap;
 }
 

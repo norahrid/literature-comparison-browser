@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "../main.css";
 import MultiSelector from "./MultiSelector";
 import SingleSelector from "./SingleSelector";
+import Tooltip from "./Tooltip";
 import { existingOptions } from "../constants";
 import { changeDataTypeSelection, changeMenu1Selection, changeMenu2Selection } from "../redux/reducers/dashboardSlice";
 
@@ -11,7 +12,10 @@ const Dashboard = () => {
     const state = useSelector(state => state);
     const dataType = state["dashboard"]["dataType"];
 
-    console.log(state)
+    const isTooltipVisible = state.dashboard.isTooltipVisible;
+    const tooltipData = state.dashboard.tooltipData;
+
+    //console.log(state)
 
     const handleDataTypeChange = (newSelection) => {
         const dashboardState = {
@@ -47,6 +51,7 @@ const Dashboard = () => {
             className="dashboard-stack"
             onClick={(e) => e.stopPropagation()}
         >
+            {isTooltipVisible && <Tooltip {...tooltipData} />}
             <SingleSelector
                 label="Data type"
                 current={Object.keys(existingOptions)[0]}
@@ -54,6 +59,7 @@ const Dashboard = () => {
                 handleChange={handleDataTypeChange}
             />
             {elements}
+            
         </div>
     );
 }

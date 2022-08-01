@@ -7,7 +7,7 @@ const initialOptions = Object.values(existingOptions).reduce((data, k) => {
 }, []);
 
 
-const initialState = initializeRecord(initialOptions, false);
+const initialState = initializeRecord(initialOptions, {"tooltipVisibility": false});
 // const initialState = initializeRecord(Object.keys(existingOptions[DEFAULT_DATA_TYPE]["dashboard"][1]["options"]), {"start": 0, "end": 50, "width": 50});
 
 
