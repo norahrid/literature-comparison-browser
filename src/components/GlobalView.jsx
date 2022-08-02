@@ -21,7 +21,7 @@ const GlobalView = (props) => {
   const { low, high } = findBoundariesOfCharacteristic(data, "length");
   const width = componentWidth - (margin * (Object.keys(data).length + 1))
   const proportions = computeProportions(data);
-  const boundaries = calculateGroupBoundaries(data, proportions, width);
+
   const headers = existingOptions[dataType]["headers"];
   
   let identifier = props.id;
@@ -66,7 +66,9 @@ const GlobalView = (props) => {
 
   const selectChunk = (event) => {
     let rect = canvasRef.current.getBoundingClientRect();
-    const actualX = event.pageX - rect.x;
+    const boundaries = calculateGroupBoundaries(data, proportions, width, rect);
+    // const actualX = event.pageX - rect.x;
+    const actualX = event.pageX;
     // No need to check for y position since the canvas = track height
     const selectedChunk = identifySelectedChunk(actualX, data, boundaries)
     if (selectedChunk !== null) {
@@ -89,7 +91,7 @@ const GlobalView = (props) => {
         height={componentHeight+20}
         onClick={selectChunk} 
         ref={canvasRef} 
-        {...props} 
+        // {...props} 
       />
     </div>
 

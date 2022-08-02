@@ -20,7 +20,7 @@ const SubregionView = (props) => {
   const headers = existingOptions[dataType]["headers"];
   const selection = getSliderSelection(data, dataType, start, end);
 
-  console.log(state)
+  // console.log(state)
 
   const mouseMove = (event) => {
     const x = event.pageX;
@@ -35,8 +35,10 @@ const SubregionView = (props) => {
         //event.target.className
 
       const unit = componentWidth / selection.length;
-      let selectionIndex = selection[Math.floor(xPosition/unit)];
+      let selectionIndex = selection[Math.floor(xPosition/unit) - 1];
       
+      // console.log(selection, Math.floor(xPosition/unit))
+      // console.log(selectionIndex)
     
       // for (let i=0; i<selection.length; i++) {
       //   const start = i * unit;
@@ -110,15 +112,16 @@ const SubregionView = (props) => {
   }, [draw]);
   
   return (
-    <div>
+    <div className="subregion-wrapper">
         <canvas 
         className="subregion-view" 
+        id="subregion"
         onMouseMove={mouseMove}
         onMouseLeave={mouseLeave}
         width={componentWidth} 
         height={componentHeight + 10}
         ref={canvasRef} 
-        {...props} 
+        // {...props} 
         />
     </div>
 

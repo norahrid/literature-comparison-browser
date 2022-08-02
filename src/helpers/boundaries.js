@@ -26,24 +26,33 @@ export const findBoundariesOfCharacteristic = (data, characteristic) => {
     return {"low": low, "high": high}
 }
 
-export const calculateGroupBoundaries = (data, proportions, width) => {
+export const calculateGroupBoundaries = (data, proportions, width, rect) => {
     let boundaries = {};
-    let newStart = 0;
+    let newStart = rect.x;
+    
+    
     for (let key in data) {
       const rectWidth = width * proportions[key];
+      const unit = rectWidth / data[key].length;
       const chunkStart = ((key - 1) * margin) + newStart;
-      boundaries[key] = {"start": chunkStart, "end": chunkStart + rectWidth};
-
-      newStart = newStart + rectWidth;
+      const chunkEnd = chunkStart + (unit * data[key].length);
+      //boundaries[key] = {"start": chunkStart, "end": chunkStart + rectWidth};
+      boundaries[key] = {"start": chunkStart, "end": chunkEnd};
+      
+      newStart = newStart + (chunkEnd - chunkStart);
+      //newStart = newStart + rectWidth;
     }
     return boundaries;
 }
 
 export const identifySelectedChunk = (mouseX, data, boundaries) => {
+  
     for (let key in data) {
       // Determine if click is on a chunk
       const { start, end } = boundaries[key];
+      //console.log(start, end, mouseX)
       if (mouseX >= start && mouseX <= end) {
+        console.log(key, start, end, mouseX)
         return key;
       }
     }
@@ -59,6 +68,7 @@ export const getSliderSelection = (data, dataType, start, end) => {
     const elemEnd = unit + (unit * i);
     if (elemStart >= start && elemEnd <= end) {
       sel.push(data[i]);
+
       // if (dataType === "GENE_DENSITY") {
       //   const elemStart = unit * i;
       //   const elemEnd = unit + (unit * i);
@@ -73,7 +83,8 @@ export const getSliderSelection = (data, dataType, start, end) => {
       //   if (data[i].start - lowest >= start && data[i].end - lowest <= end) {
       //     sel.push(data[i]);
       //   }
-      }       
+      }    
+      else if (elemEnd === componentWidth) sel.push(data[i]);   
   }
   return sel;
 }
