@@ -66,9 +66,9 @@ export const existingOptions = {
             label: "the",
             value: "THE"
           },
-          PRIDE: {
-            label: "pride",
-            value: "PRIDE"
+          A: {
+            label: "a",
+            value: "A"
           }
         },
         minElementRequirement: 1

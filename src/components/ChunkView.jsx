@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
+import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu, filter } from "d3";
 import interact from "interactjs";
 import { changeSliderBoundaries } from "../redux/reducers/chunkSlice";
 import { componentHeight, componentWidth, sliderWidth, existingOptions } from "../constants";
@@ -109,16 +109,21 @@ const ChunkView = (props) => {
 
     const unit = componentWidth / data.length;
     let yStart = 0;
-    for (let f=0; f<=filters.length; f++) {
+    for (let f=0; f<filters.length; f++) {
+      for (let i=0; i<data.length; i++) {
+        if (filters[f] === "ALL_WORDS" || filters[f].toLowerCase() === data[i]["word"]) {
+          const colour = setColourScheme(props.colourScale, data[i]["length"]);
+          ctx.fillStyle = colour;
+          ctx.fillRect(i*unit, f*trackHeight, unit, trackHeight);
+          processedData.push({...data[i], "calculatedStart": i*unit, "unitWidth": unit});
 
+        }
+
+      }
+      // yStart += trackHeight;
     }
 
-    for (let i=0; i<data.length; i++) {
-        const colour = setColourScheme(props.colourScale, data[i]["length"]);
-        ctx.fillStyle = colour;
-        ctx.fillRect(i*unit, 0, unit, componentHeight);
-        processedData.push({...data[i], "calculatedStart": i*unit, "unitWidth": unit});
-    }
+   
     //dispatch
     attachDraggableSlider();
   }
