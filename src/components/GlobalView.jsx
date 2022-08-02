@@ -25,7 +25,8 @@ const GlobalView = (props) => {
   const headers = existingOptions[dataType]["headers"];
   
   let identifier = props.id;
-  if (dataType === "LITERATURE") identifier = data[1][0]["title"].toUpperCase().replaceAll(" ", "_");
+  if (dataType === "LITERATURE") identifier = data[1][0]["title"].toUpperCase().replaceAll(" ", "_").replaceAll("\u2019", "");
+
 
   const draw = (ctx, data) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)

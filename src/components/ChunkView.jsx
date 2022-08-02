@@ -13,10 +13,14 @@ const ChunkView = (props) => {
   const dispatch = useDispatch();
   const chunkSelection = state["global"]["chunkSelection"][props.id];
   const dataType = state["dashboard"]["dataType"];
+  const filters = state["dashboard"][2];
   const { low, high } = findBoundariesOfCharacteristic(props.data, "length");
   const data = props.data[chunkSelection];
   //bookData[chunkSelection];
   const headers = existingOptions[dataType]["headers"];
+  const trackHeight = componentHeight / filters.length;
+
+  console.log(filters)
 
   let identifier = props.id;
   if (dataType === "LITERATURE") identifier = data[0]["title"].toUpperCase().replaceAll(" ", "_").replaceAll("\u2019", "");
@@ -104,6 +108,10 @@ const ChunkView = (props) => {
 
 
     const unit = componentWidth / data.length;
+    let yStart = 0;
+    for (let f=0; f<=filters.length; f++) {
+
+    }
 
     for (let i=0; i<data.length; i++) {
         const colour = setColourScheme(props.colourScale, data[i]["length"]);

@@ -15,7 +15,7 @@ const Dashboard = () => {
     const isTooltipVisible = state.dashboard.isTooltipVisible;
     const tooltipData = state.dashboard.tooltipData;
 
-    //console.log(state)
+    // console.log(state)
 
     const handleDataTypeChange = (newSelection) => {
         const dashboardState = {

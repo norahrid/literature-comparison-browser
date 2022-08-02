@@ -52,7 +52,6 @@ export const identifySelectedChunk = (mouseX, data, boundaries) => {
       const { start, end } = boundaries[key];
       //console.log(start, end, mouseX)
       if (mouseX >= start && mouseX <= end) {
-        console.log(key, start, end, mouseX)
         return key;
       }
     }
