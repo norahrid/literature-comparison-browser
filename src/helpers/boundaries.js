@@ -28,7 +28,7 @@ export const findBoundariesOfCharacteristic = (data, characteristic) => {
 
 export const calculateGroupBoundaries = (data, proportions, width, rect) => {
     let boundaries = {};
-    let newStart = rect.x;
+    let newStart = 0;
     
     
     for (let key in data) {

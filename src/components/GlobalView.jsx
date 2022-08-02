@@ -83,8 +83,8 @@ const GlobalView = (props) => {
   const selectChunk = (event) => {
     let rect = canvasRef.current.getBoundingClientRect();
     const boundaries = calculateGroupBoundaries(data, proportions, width, rect);
-    //const actualX = event.pageX - rect.x;
-    const actualX = event.pageX;
+    const actualX = event.pageX - rect.x;
+    //const actualX = event.pageX;
     // No need to check for y position since the canvas = track height
     const selectedChunk = identifySelectedChunk(actualX, data, boundaries)
     if (selectedChunk !== null) {
