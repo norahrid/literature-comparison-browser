@@ -21,6 +21,8 @@ const GlobalView = (props) => {
   const { low, high } = findBoundariesOfCharacteristic(data, "length");
   const width = componentWidth - (margin * (Object.keys(data).length + 1))
   const proportions = computeProportions(data);
+  const filters = state["dashboard"][2];
+  const trackHeight = componentHeight / filters.length;
 
   const headers = existingOptions[dataType]["headers"];
   
@@ -55,20 +57,33 @@ const GlobalView = (props) => {
         ctx.lineTo(chunkStart + (unit * data[key].length), componentHeight + 3);
         ctx.stroke();
       }
-      
-      for (let i=0; i < data[key].length; i++) {
-        const colour = setColourScheme(props.colourScale, data[key][i]["length"]);
-        ctx.fillStyle = colour;
-        ctx.fillRect(chunkStart + (i*unit), 0, unit, componentHeight);
+
+      for (let f=0; f<filters.length; f++) {
+        for (let i=0; i < data[key].length; i++) {
+          if (filters[f] === "ALL_WORDS" || filters[f].toLowerCase() === data[key][i]["word"]) {
+            const colour = setColourScheme(props.colourScale, data[key][i]["length"]);
+            ctx.fillStyle = colour;
+            ctx.fillRect(chunkStart + (i*unit), trackHeight*f, unit-0.5, trackHeight);
+          }
+        } 
       }
       newStart += rectWidth;
+      
+  
+      
+      // for (let i=0; i < data[key].length; i++) {
+      //   const colour = setColourScheme(props.colourScale, data[key][i]["length"]);
+      //   ctx.fillStyle = colour;
+      //   ctx.fillRect(chunkStart + (i*unit), 0, unit, componentHeight);
+      // }
+      // newStart += rectWidth;
     }
   }
 
   const selectChunk = (event) => {
     let rect = canvasRef.current.getBoundingClientRect();
     const boundaries = calculateGroupBoundaries(data, proportions, width, rect);
-    // const actualX = event.pageX - rect.x;
+    //const actualX = event.pageX - rect.x;
     const actualX = event.pageX;
     // No need to check for y position since the canvas = track height
     const selectedChunk = identifySelectedChunk(actualX, data, boundaries)

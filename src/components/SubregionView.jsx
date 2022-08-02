@@ -15,10 +15,12 @@ const SubregionView = (props) => {
   const dataType = state["dashboard"]["dataType"];
   const chunkSelection = state["global"]["chunkSelection"][props.id];
   const { start, end, width } = state["chunk"][props.id]
+  const filters = state["dashboard"][2];
   const { low, high } = findBoundariesOfCharacteristic(props.data, "length");
   const data = props.data[chunkSelection];
   const headers = existingOptions[dataType]["headers"];
   const selection = getSliderSelection(data, dataType, start, end);
+  const trackHeight = componentHeight / filters.length;
 
   // console.log(state)
 
@@ -94,14 +96,25 @@ const SubregionView = (props) => {
 
     const unit = componentWidth / selection.length;
 
-    for (let i=0; i<selection.length; i++) {
-        const colour = setColourScheme(props.colourScale, selection[i]["length"]);
-        ctx.fillStyle = colour;
-
-        //const elemStart = ((selection[i] - start) / width) * componentWidth;
-        ctx.fillRect(i * unit, 0, unit, componentHeight);
-
+    for (let f=0; f<filters.length; f++) {
+      for (let i=0; i<selection.length; i++) {
+        if (filters[f] === "ALL_WORDS" || filters[f].toLowerCase() === selection[i]["word"]) {
+          const colour = setColourScheme(props.colourScale, selection[i]["length"]);
+          ctx.fillStyle = colour;
+          ctx.fillRect(i * unit, f*trackHeight, unit, trackHeight);
+        }
+      }
     }
+
+
+    // for (let i=0; i<selection.length; i++) {
+    //     const colour = setColourScheme(props.colourScale, selection[i]["length"]);
+    //     ctx.fillStyle = colour;
+
+    //     //const elemStart = ((selection[i] - start) / width) * componentWidth;
+    //     ctx.fillRect(i * unit, 0, unit, componentHeight);
+
+    // }
   }
 
   useEffect(() => {

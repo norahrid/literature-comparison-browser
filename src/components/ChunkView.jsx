@@ -20,8 +20,6 @@ const ChunkView = (props) => {
   const headers = existingOptions[dataType]["headers"];
   const trackHeight = componentHeight / filters.length;
 
-  console.log(filters)
-
   let identifier = props.id;
   if (dataType === "LITERATURE") identifier = data[0]["title"].toUpperCase().replaceAll(" ", "_").replaceAll("\u2019", "");
   

@@ -42,6 +42,7 @@ export const calculateGroupBoundaries = (data, proportions, width, rect) => {
       newStart = newStart + (chunkEnd - chunkStart);
       //newStart = newStart + rectWidth;
     }
+    console.log(boundaries)
     return boundaries;
 }
 
@@ -52,6 +53,7 @@ export const identifySelectedChunk = (mouseX, data, boundaries) => {
       const { start, end } = boundaries[key];
       //console.log(start, end, mouseX)
       if (mouseX >= start && mouseX <= end) {
+        console.log(start, end, mouseX)
         return key;
       }
     }
