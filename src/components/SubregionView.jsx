@@ -23,7 +23,6 @@ const SubregionView = (props) => {
   const trackHeight = componentHeight / filters.length;
 
   // console.log(state)
-  console.log(selection)
 
   const mouseMove = (event) => {
     const x = event.pageX;
