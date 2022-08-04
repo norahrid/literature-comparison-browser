@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
+import { cloneDeep } from 'lodash';
 import { changeChunkSelection } from "../redux/reducers/globalSlice";
 import { componentHeight, componentWidth, margin, existingOptions } from "../constants";
 import { findBoundariesOfCharacteristic, getSliderSelection } from "../helpers/boundaries";
@@ -21,8 +22,13 @@ const SubregionView = (props) => {
   const headers = existingOptions[dataType]["headers"];
   const selection = getSliderSelection(data, dataType, start, end);
   const trackHeight = componentHeight / filters.length;
+  let calculatedSelection = [];
 
   // console.log(state)
+
+  const resetCalculatedSelection = (sel) => {
+    sel = [];
+  }
 
   const mouseMove = (event) => {
     const x = event.pageX;
@@ -31,23 +37,38 @@ const SubregionView = (props) => {
 
       var pageWidth = document.body.getBoundingClientRect().width,
           canvasRect = event.currentTarget.getBoundingClientRect();
-      const xPosition = event.pageX - canvasRect.left,
+      const xPosition = event.clientX - canvasRect.left,
           yPosition = event.pageY - window.pageYOffset - canvasRect.top;
 
         //event.target.className
 
       const unit = componentWidth / selection.length;
       let selectionIndex = selection[Math.floor(xPosition/unit)];
+     // let selectionIndex;
       
-      // console.log(selection, Math.floor(xPosition/unit))
+      //console.log(Math.floor(xPosition/unit), xPosition, unit)
       // console.log(selectionIndex)
+
+     
+
+      // for (let i=0; i<calculatedSelection.length; i++) {
+      //   //console.log(calculatedSelection[i])
+      //   if (xPosition >= calculatedSelection[i].calculatedStart && xPosition <= calculatedSelection[i].calculatedEnd) {
+          
+      //     selectionIndex = {...calculatedSelection[i]};
+      //     //console.log(Math.floor(xPosition/unit), i)
+      //   }
+      // }
+
+      //console.log(selectionIndex)
+     
     
       // for (let i=0; i<selection.length; i++) {
       //   const start = i * unit;
       //   const end = start + unit;
       //   if (xPosition >= start && xPosition < end) {
       //     selectionIndex = selection[i];
-      //     console.log(Math.floor(xPosition/unit), i)
+      //     //console.log(Math.floor(xPosition/unit), i)
       //   }
 
       // }
@@ -87,6 +108,8 @@ const SubregionView = (props) => {
   const draw = (ctx, selection) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
+    //resetCalculatedSelection(calculatedSelection);
+
     // var colourScale = scaleLinear()
     // .domain([low, high])
     // .range([0, 1]);
@@ -96,12 +119,17 @@ const SubregionView = (props) => {
 
     const unit = componentWidth / selection.length;
 
+    // console.log(selection)
+
     for (let f=0; f<filters.length; f++) {
       for (let i=0; i<selection.length; i++) {
+        const start = i * unit;
+        const end = start + unit;
+        calculatedSelection.push({...selection[i], "calculatedStart": start, "calculatedEnd": end});
         if (filters[f] === "ALL_WORDS" || filters[f].toLowerCase() === selection[i]["word"]) {
           const colour = setColourScheme(props.colourScale, selection[i]["length"]);
           ctx.fillStyle = colour;
-          ctx.fillRect(i * unit, f*trackHeight, unit, trackHeight);
+          ctx.fillRect(start, f*trackHeight, unit, trackHeight);
         }
       }
     }

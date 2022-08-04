@@ -42,7 +42,7 @@ export const calculateGroupBoundaries = (data, proportions, width, rect) => {
       newStart = newStart + (chunkEnd - chunkStart);
       //newStart = newStart + rectWidth;
     }
-    console.log(boundaries)
+    //console.log(boundaries)
     return boundaries;
 }
 

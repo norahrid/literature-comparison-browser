@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
-import { scaleLinear } from "d3";
+import { scaleLinear, scaleLog } from "d3";
 import "./main.css";
 import Dashboard from "./components/Dashboard";
 import Track from "./components/Track";
@@ -26,7 +26,7 @@ function App() {
     if (value.low < low) low = value.low;
     if (value.high > high) high = value.high;
   }
-  var colourScale = scaleLinear()
+  var colourScale = scaleLog()
   .domain([low, high])
   .range([0, 1]);
   
