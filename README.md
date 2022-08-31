@@ -11,7 +11,7 @@ The VC browser is freely available to use at [https://genomevis.usask.ca/visual-
 
 ### Note
 
-The app on the main branch in the app shown in the demo videos. The app on the `creatable-select` branch is the app that's currently in development and contains commented code.
+The app on the main branch is the app shown in the demo videos. The app on the `creatable-select` branch is the app that's currently in development and contains commented code.
 
 ### Available Scripts
 
