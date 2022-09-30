@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/literature-comparison-browser/static/css/main.fb988aab.chunk.css",
+    "main.js": "/literature-comparison-browser/static/js/main.2bf2fcd7.chunk.js",
+    "main.js.map": "/literature-comparison-browser/static/js/main.2bf2fcd7.chunk.js.map",
+    "runtime-main.js": "/literature-comparison-browser/static/js/runtime-main.03267864.js",
+    "runtime-main.js.map": "/literature-comparison-browser/static/js/runtime-main.03267864.js.map",
+    "static/js/2.0f0461ce.chunk.js": "/literature-comparison-browser/static/js/2.0f0461ce.chunk.js",
+    "static/js/2.0f0461ce.chunk.js.map": "/literature-comparison-browser/static/js/2.0f0461ce.chunk.js.map",
+    "index.html": "/literature-comparison-browser/index.html",
+    "static/css/main.fb988aab.chunk.css.map": "/literature-comparison-browser/static/css/main.fb988aab.chunk.css.map",
+    "static/js/2.0f0461ce.chunk.js.LICENSE.txt": "/literature-comparison-browser/static/js/2.0f0461ce.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.03267864.js",
+    "static/js/2.0f0461ce.chunk.js",
+    "static/css/main.fb988aab.chunk.css",
+    "static/js/main.2bf2fcd7.chunk.js"
+  ]
+}
