@@ -2,7 +2,7 @@
 
 The Literature Comparison (LC) browser supports the visual comparison of book datasets. The application consists of three stacked views with each view showing a progressively more detailed look at the dataset. Users can use various forms of interaction such as clicking an element of interest, sliding a slider to select a region of an element, or selecting filters in a drop-down menu to filter their dataset.
 
-The LC browser is freely available to use at 
+The LC browser is freely available to try out [here](https://norahrid.github.io/literature-comparison-browser/).
 
 ### Example LC browser use cases
 
