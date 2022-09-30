@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
+import _ from "lodash";
 import GlobalView from "./GlobalView";
 import ChunkView from "./ChunkView";
 import SubregionView from "./SubregionView";
@@ -14,8 +14,11 @@ const Track = ({trackType, colourScale}) => {
     const data = dataFileManager[dataType];
 
     const constructElement = (trackType, trackData, id, colourScale) => {
+      // global view
       if (trackType === 1) return constructTrack1(trackData, id, colourScale);
+      // chunk view
       else if (trackType === 2) return constructTrack2(trackData, id, colourScale);
+      // subregion view
       else if (trackType === 3) return constructTrack3(trackData, id, colourScale);
     }
 

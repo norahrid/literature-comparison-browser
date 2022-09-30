@@ -12,7 +12,6 @@ const SingleSelector = (props) => {
     <div className="dashboard-container dashboard-related">
       <p>{props.label}</p>
       <Select
-        //defaultValue={props.options[props.current.toUpperCase()]}
         defaultValue={current}
         options={Object.values(props.options)}
         onChange={onChange}

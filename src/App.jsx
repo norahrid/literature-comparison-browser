@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import _ from "lodash";
-import { useSelector, useDispatch } from "react-redux";
-import { scaleLinear, scaleLog } from "d3";
+import { useSelector } from "react-redux";
+import { scaleLog } from "d3";
 import "./main.css";
 import Dashboard from "./components/Dashboard";
 import Track from "./components/Track";
@@ -47,4 +47,5 @@ function App() {
     </div>
   );
 }
+
 export default App;

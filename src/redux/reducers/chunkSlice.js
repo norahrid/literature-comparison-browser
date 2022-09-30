@@ -1,4 +1,4 @@
-import { existingOptions, DEFAULT_DATA_TYPE } from "../../constants";
+import { existingOptions } from "../../constants";
 import { initializeRecord } from "../../helpers/record";
 
 const initialOptions = Object.values(existingOptions).reduce((data, k) => {
@@ -7,8 +7,6 @@ const initialOptions = Object.values(existingOptions).reduce((data, k) => {
 }, []);
 
 const initialState = initializeRecord(initialOptions, {"start": 0, "end": 50, "width": 50, "data":{}});
-// const initialState = initializeRecord(Object.keys(existingOptions[DEFAULT_DATA_TYPE]["dashboard"][1]["options"]), {"start": 0, "end": 50, "width": 50});
-
 
 export const changeSliderBoundaries = (newSliderBoundaries) => {
     return {

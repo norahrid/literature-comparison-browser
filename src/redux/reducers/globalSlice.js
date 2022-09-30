@@ -1,4 +1,4 @@
-import { existingOptions, DEFAULT_DATA_TYPE } from "../../constants";
+import { existingOptions } from "../../constants";
 import { initializeRecord } from "../../helpers/record";
 
 const initialOptions = Object.values(existingOptions).reduce((data, k) => {
@@ -8,7 +8,6 @@ const initialOptions = Object.values(existingOptions).reduce((data, k) => {
 
 
 const initialState = {
-    // chunkSelection: initializeRecord(Object.keys(existingOptions[DEFAULT_DATA_TYPE]["dashboard"][1]["options"]), 1),
     chunkSelection: initializeRecord(initialOptions, 1),
 }
 

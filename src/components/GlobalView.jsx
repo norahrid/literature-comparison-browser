@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { scaleLinear, interpolateReds, interpolateMagma, interpolateRdBu } from "d3";
 import { changeChunkSelection } from "../redux/reducers/globalSlice";
 import { componentHeight, componentWidth, margin, existingOptions } from "../constants";
 import { 
@@ -29,13 +28,8 @@ const GlobalView = (props) => {
   let identifier = props.id;
   if (dataType === "LITERATURE") identifier = data[1][0]["title"].toUpperCase().replaceAll(" ", "_").replaceAll("\u2019", "");
 
-
   const draw = (ctx, data) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-
-    // var colourScale = scaleLinear()
-    // .domain([low, high])
-    // .range([0, 1]);
 
     let newStart = 0;
     for (let key in data) {
@@ -45,11 +39,13 @@ const GlobalView = (props) => {
       // chunk starts at 1 but we need to start at 0
       const chunkStart = ((key - 1) * margin) + newStart;
 
+      // label chunk with its number
       ctx.beginPath();
       ctx.font = "8px Arial";
       ctx.fillStyle = 'grey';
       ctx.fillText(key, chunkStart + ((data[key].length*unit)/4), componentHeight + 13);
 
+      // indicate selected chunk
       if (chunkSelection == key) {
         ctx.strokeStyle = "white";
         ctx.beginPath();
@@ -58,6 +54,7 @@ const GlobalView = (props) => {
         ctx.stroke();
       }
 
+      // if word filter is applied, then only draw specific words
       for (let f=0; f<filters.length; f++) {
         for (let i=0; i < data[key].length; i++) {
           if (filters[f] === "ALL_WORDS" || filters[f].toLowerCase() === data[key][i]["word"]) {
@@ -68,18 +65,10 @@ const GlobalView = (props) => {
         } 
       }
       newStart += rectWidth;
-      
-  
-      
-      // for (let i=0; i < data[key].length; i++) {
-      //   const colour = setColourScheme(props.colourScale, data[key][i]["length"]);
-      //   ctx.fillStyle = colour;
-      //   ctx.fillRect(chunkStart + (i*unit), 0, unit, componentHeight);
-      // }
-      // newStart += rectWidth;
     }
   }
 
+  // update chunk selection when the user clicks on a chunk
   const selectChunk = (event) => {
     let rect = canvasRef.current.getBoundingClientRect();
     const boundaries = calculateGroupBoundaries(data, proportions, width, rect);
@@ -88,8 +77,6 @@ const GlobalView = (props) => {
     const xPos = event.pageX - canvasRect.left;
     
     const actualX = event.clientX - rect.x;
-    //console.log(rect, event.clientX, event.pageX)
-    //const actualX = event.pageX;
     // No need to check for y position since the canvas = track height
     const selectedChunk = identifySelectedChunk(actualX, data, boundaries)
     if (selectedChunk !== null) {

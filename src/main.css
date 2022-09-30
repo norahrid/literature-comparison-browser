@@ -131,15 +131,10 @@ input:focus {
 }
 
 .chunk-slider {
-  /* width: 50px; */
   background-color: #4c585d36;
   touch-action: none;
-  /* This makes things *much* easier */
   box-sizing: border-box;
   border-bottom: 5px solid #1d6e90;
-  /* &:hover {
-      background-color: #4c585d61 !important;
-  } */
 }
 .chunk-outer-wrapper {
   display: inline-block;
